@@ -27,5 +27,10 @@
 *.out
 *.app
 
+# XCode
 build/
 Derived/Data/
+
+# OSX
+.DS_Store
+
