@@ -1,0 +1,118 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Blocks">
+      <UniqueIdentifier>{C9E758ED-2E3E-4E86-9CA3-52E4F89538E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\MagicWindow">
+      <UniqueIdentifier>{E2934D3D-0B4C-49FA-92DF-9294F6CF8F4F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\MagicWindow\include">
+      <UniqueIdentifier>{A0521010-45C1-4974-AD46-F48900B9069B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\MagicWindow\include\MagicWindow">
+      <UniqueIdentifier>{5F088C4B-CC9E-45B6-838E-0819F90D72D0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Blocks\MagicWindow\src">
+      <UniqueIdentifier>{6A85E23C-39D2-4DF0-B7B0-451E024D15CB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\MagicWindowBasicApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClCompile Include="..\src\MagicWindowBasicApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\..\include\MagicWindow\Config.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\Context.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\Controller.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\Logger.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\MagicWindowApp.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\Signals.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\State.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\StateMachine.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\Timer.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\Transition.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\Utils.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\MagicWindow\WindowConfig.h">
+      <Filter>Blocks\MagicWindow\include\MagicWindow</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\..\src\Config.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Context.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Controller.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Logger.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\MagicWindowApp.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\State.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\StateMachine.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Transition.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\Utils.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\WindowConfig.cpp">
+      <Filter>Blocks\MagicWindow\src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

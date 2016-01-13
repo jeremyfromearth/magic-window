@@ -1,0 +1,455 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006D720219952D00008149E2 /* AVFoundation.framework */; };
+		006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006D720319952D00008149E2 /* CoreMedia.framework */; };
+		0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0091D8F80E81B9330029341E /* OpenGL.framework */; };
+		00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784AF0FF439BC000DE1D7 /* Accelerate.framework */; };
+		00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */; };
+		00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B10FF439BC000DE1D7 /* AudioUnit.framework */; };
+		00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B784B20FF439BC000DE1D7 /* CoreAudio.framework */; };
+		00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995581B128DF400A5C623 /* IOKit.framework */; };
+		00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00B995591B128DF400A5C623 /* IOSurface.framework */; };
+		5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5323E6B10EAFCA74003A9687 /* CoreVideo.framework */; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		A774BD914A4144A68B760EDE /* WindowConfig.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B4DA98988D64758BC863615 /* WindowConfig.cpp */; };
+		BAB5AA89D1C84D70AF59E424 /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CD71EA6310D4950AB6DFF52 /* Utils.cpp */; };
+		FF0493D34DBE45278F5EDFB6 /* Transition.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 72086CDBB1FA4F588E3E8B24 /* Transition.cpp */; };
+		A15D7F56940A4F9F8CB408BC /* StateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0F2F81B199F348A78B2C5CE1 /* StateMachine.cpp */; };
+		D22AEA62EE7449E58EF58721 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD5B964BC20C41EBB2413D1D /* State.cpp */; };
+		6049FA1A4DD6400F84F79C06 /* MagicWindowApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB287CA82B604771B1BA30C9 /* MagicWindowApp.cpp */; };
+		6B951B0D467548DBABC9B9CD /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F28D7E33B258464E9D61B887 /* Logger.cpp */; };
+		B2AF4462481C4A43B0E707A4 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50CD1AC18D97475F98CED316 /* Controller.cpp */; };
+		FE41B56157F5451D8081B79C /* Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F4943A15B734BB4BAE8FDF9 /* Context.cpp */; };
+		49F4AB54D20041AD922A719D /* Config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8691126996634D1BA68E7E33 /* Config.cpp */; };
+		B22D00746BAB45BCBD92D22E /* WindowConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = CEDE7E423BB140E9B1D40B89 /* WindowConfig.h */; };
+		4A2275529D1E491588CA637A /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = BF93CB36665E4A25B1ED800F /* Utils.h */; };
+		2ED6B68F4FE449679FA3F0A1 /* Transition.h in Headers */ = {isa = PBXBuildFile; fileRef = B80BDB7486D74C13A83CEC49 /* Transition.h */; };
+		A0F3863C6CE446D1BC822997 /* Timer.h in Headers */ = {isa = PBXBuildFile; fileRef = 25F1E1F82EF54E4C8D203378 /* Timer.h */; };
+		2A7984883A7A4E4F98D7AD45 /* StateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 10C090DA1C7C4791B383AFEE /* StateMachine.h */; };
+		D335448312BF438CB23E54B6 /* State.h in Headers */ = {isa = PBXBuildFile; fileRef = A014D199F44E4732B60227D0 /* State.h */; };
+		22A4254751E64F50B220087D /* Signals.h in Headers */ = {isa = PBXBuildFile; fileRef = DE206E3E112D47A58EA017E4 /* Signals.h */; };
+		739BB6AF727048B9B2D00406 /* MagicWindowApp.h in Headers */ = {isa = PBXBuildFile; fileRef = 6346645F87D64C7ABDADF6A1 /* MagicWindowApp.h */; };
+		4053F102B9234615A204C179 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = D845AA24117E40A88A3DC1AC /* Logger.h */; };
+		1D3E51CA03DE4D729F3012DA /* Controller.h in Headers */ = {isa = PBXBuildFile; fileRef = EABF4A5565CF4D689757C962 /* Controller.h */; };
+		C71425DB911A4A159A61C1CD /* Context.h in Headers */ = {isa = PBXBuildFile; fileRef = BD62DAD2B09E40618DDDACE5 /* Context.h */; };
+		BF828198B4714EB6810453E6 /* Config.h in Headers */ = {isa = PBXBuildFile; fileRef = 4673812A3DEB4C819EFEB4BA /* Config.h */; };
+		C1AC5FA0EC9D4A2F957A1EF7 /* MagicWindowBasicApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A9076F9E7447F38A929C2C /* MagicWindowBasicApp.cpp */; };
+		AC18F811CA0949258F964D6A /* MagicWindowBasic_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 26BE01273F6D4C0CA5DF84F3 /* MagicWindowBasic_Prefix.pch */; };
+		640ABA0549994ED6BAA24BBE /* CinderApp.icns in Resources */ = {isa = PBXBuildFile; fileRef = FB34F5C4137F48F6B7DEFD00 /* CinderApp.icns */; };
+		A278C9DF64794D7094E612EE /* Resources.h in Headers */ = {isa = PBXBuildFile; fileRef = 2023D2EA9F8B4C02BD022B79 /* Resources.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		006D720219952D00008149E2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		006D720319952D00008149E2 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		0091D8F80E81B9330029341E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		00B784AF0FF439BC000DE1D7 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		00B784B10FF439BC000DE1D7 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = System/Library/Frameworks/AudioUnit.framework; sourceTree = SDKROOT; };
+		00B784B20FF439BC000DE1D7 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		00B995581B128DF400A5C623 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		00B995591B128DF400A5C623 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/Frameworks/IOSurface.framework; sourceTree = SDKROOT; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5323E6B10EAFCA74003A9687 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
+		8D1107320486CEB800E47090 /* MagicWindowBasic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicWindowBasic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2023D2EA9F8B4C02BD022B79 /* Resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../include/Resources.h; sourceTree = "<group>"; name = Resources.h; };
+		FB34F5C4137F48F6B7DEFD00 /* CinderApp.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = ../resources/CinderApp.icns; sourceTree = "<group>"; name = CinderApp.icns; };
+		061C04D55BD440BABA581C3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; name = Info.plist; };
+		26BE01273F6D4C0CA5DF84F3 /* MagicWindowBasic_Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = "\"\""; path = MagicWindowBasic_Prefix.pch; sourceTree = "<group>"; name = MagicWindowBasic_Prefix.pch; };
+		81A9076F9E7447F38A929C2C /* MagicWindowBasicApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../src/MagicWindowBasicApp.cpp; sourceTree = "<group>"; name = MagicWindowBasicApp.cpp; };
+		4673812A3DEB4C819EFEB4BA /* Config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Config.h; sourceTree = "<group>"; name = Config.h; };
+		BD62DAD2B09E40618DDDACE5 /* Context.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Context.h; sourceTree = "<group>"; name = Context.h; };
+		EABF4A5565CF4D689757C962 /* Controller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Controller.h; sourceTree = "<group>"; name = Controller.h; };
+		D845AA24117E40A88A3DC1AC /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Logger.h; sourceTree = "<group>"; name = Logger.h; };
+		6346645F87D64C7ABDADF6A1 /* MagicWindowApp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/MagicWindowApp.h; sourceTree = "<group>"; name = MagicWindowApp.h; };
+		DE206E3E112D47A58EA017E4 /* Signals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Signals.h; sourceTree = "<group>"; name = Signals.h; };
+		A014D199F44E4732B60227D0 /* State.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/State.h; sourceTree = "<group>"; name = State.h; };
+		10C090DA1C7C4791B383AFEE /* StateMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/StateMachine.h; sourceTree = "<group>"; name = StateMachine.h; };
+		25F1E1F82EF54E4C8D203378 /* Timer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Timer.h; sourceTree = "<group>"; name = Timer.h; };
+		B80BDB7486D74C13A83CEC49 /* Transition.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Transition.h; sourceTree = "<group>"; name = Transition.h; };
+		BF93CB36665E4A25B1ED800F /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/Utils.h; sourceTree = "<group>"; name = Utils.h; };
+		CEDE7E423BB140E9B1D40B89 /* WindowConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ../../../include/MagicWindow/WindowConfig.h; sourceTree = "<group>"; name = WindowConfig.h; };
+		8691126996634D1BA68E7E33 /* Config.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/Config.cpp; sourceTree = "<group>"; name = Config.cpp; };
+		9F4943A15B734BB4BAE8FDF9 /* Context.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/Context.cpp; sourceTree = "<group>"; name = Context.cpp; };
+		50CD1AC18D97475F98CED316 /* Controller.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/Controller.cpp; sourceTree = "<group>"; name = Controller.cpp; };
+		F28D7E33B258464E9D61B887 /* Logger.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/Logger.cpp; sourceTree = "<group>"; name = Logger.cpp; };
+		EB287CA82B604771B1BA30C9 /* MagicWindowApp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/MagicWindowApp.cpp; sourceTree = "<group>"; name = MagicWindowApp.cpp; };
+		DD5B964BC20C41EBB2413D1D /* State.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/State.cpp; sourceTree = "<group>"; name = State.cpp; };
+		0F2F81B199F348A78B2C5CE1 /* StateMachine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/StateMachine.cpp; sourceTree = "<group>"; name = StateMachine.cpp; };
+		72086CDBB1FA4F588E3E8B24 /* Transition.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/Transition.cpp; sourceTree = "<group>"; name = Transition.cpp; };
+		0CD71EA6310D4950AB6DFF52 /* Utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/Utils.cpp; sourceTree = "<group>"; name = Utils.cpp; };
+		3B4DA98988D64758BC863615 /* WindowConfig.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.cpp; path = ../../../src/WindowConfig.cpp; sourceTree = "<group>"; name = WindowConfig.cpp; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
+				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				0091D8F90E81B9330029341E /* OpenGL.framework in Frameworks */,
+				5323E6B20EAFCA74003A9687 /* CoreVideo.framework in Frameworks */,
+				00B784B30FF439BC000DE1D7 /* Accelerate.framework in Frameworks */,
+				00B784B40FF439BC000DE1D7 /* AudioToolbox.framework in Frameworks */,
+				00B784B50FF439BC000DE1D7 /* AudioUnit.framework in Frameworks */,
+				00B784B60FF439BC000DE1D7 /* CoreAudio.framework in Frameworks */,
+				00B9955A1B128DF400A5C623 /* IOKit.framework in Frameworks */,
+				00B9955B1B128DF400A5C623 /* IOSurface.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				81A9076F9E7447F38A929C2C /* MagicWindowBasicApp.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				006D720219952D00008149E2 /* AVFoundation.framework */,
+				006D720319952D00008149E2 /* CoreMedia.framework */,
+				00B784AF0FF439BC000DE1D7 /* Accelerate.framework */,
+				00B784B00FF439BC000DE1D7 /* AudioToolbox.framework */,
+				00B784B10FF439BC000DE1D7 /* AudioUnit.framework */,
+				00B784B20FF439BC000DE1D7 /* CoreAudio.framework */,
+				5323E6B10EAFCA74003A9687 /* CoreVideo.framework */,
+				0091D8F80E81B9330029341E /* OpenGL.framework */,
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				00B995581B128DF400A5C623 /* IOKit.framework */,
+				00B995591B128DF400A5C623 /* IOSurface.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* MagicWindowBasic.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* MagicWindowBasic */ = {
+			isa = PBXGroup;
+			children = (
+				01B97315FEAEA392516A2CEA /* Blocks */,
+				29B97315FDCFA39411CA2CEA /* Headers */,
+				080E96DDFE201D6D7F000001 /* Source */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = MagicWindowBasic;
+			sourceTree = "<group>";
+		};
+		4F1E075ADF0045E29579AA2A /* MagicWindow */ = {
+			isa = PBXGroup;
+			children = (
+				4673812A3DEB4C819EFEB4BA /* Config.h */,
+				BD62DAD2B09E40618DDDACE5 /* Context.h */,
+				EABF4A5565CF4D689757C962 /* Controller.h */,
+				D845AA24117E40A88A3DC1AC /* Logger.h */,
+				6346645F87D64C7ABDADF6A1 /* MagicWindowApp.h */,
+				DE206E3E112D47A58EA017E4 /* Signals.h */,
+				A014D199F44E4732B60227D0 /* State.h */,
+				10C090DA1C7C4791B383AFEE /* StateMachine.h */,
+				25F1E1F82EF54E4C8D203378 /* Timer.h */,
+				B80BDB7486D74C13A83CEC49 /* Transition.h */,
+				BF93CB36665E4A25B1ED800F /* Utils.h */,
+				CEDE7E423BB140E9B1D40B89 /* WindowConfig.h */,
+			);
+			name = MagicWindow;
+			sourceTree = "<group>";
+		};
+		8A59A4CC6C7E4843A24FF6B8 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				4F1E075ADF0045E29579AA2A /* MagicWindow */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		C7B573F0FF9B4AE38F38F894 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8691126996634D1BA68E7E33 /* Config.cpp */,
+				9F4943A15B734BB4BAE8FDF9 /* Context.cpp */,
+				50CD1AC18D97475F98CED316 /* Controller.cpp */,
+				F28D7E33B258464E9D61B887 /* Logger.cpp */,
+				EB287CA82B604771B1BA30C9 /* MagicWindowApp.cpp */,
+				DD5B964BC20C41EBB2413D1D /* State.cpp */,
+				0F2F81B199F348A78B2C5CE1 /* StateMachine.cpp */,
+				72086CDBB1FA4F588E3E8B24 /* Transition.cpp */,
+				0CD71EA6310D4950AB6DFF52 /* Utils.cpp */,
+				3B4DA98988D64758BC863615 /* WindowConfig.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		ACC55816A1004DA2A9A474AF /* MagicWindow */ = {
+			isa = PBXGroup;
+			children = (
+				8A59A4CC6C7E4843A24FF6B8 /* include */,
+				C7B573F0FF9B4AE38F38F894 /* src */,
+			);
+			name = MagicWindow;
+			sourceTree = "<group>";
+		};
+		01B97315FEAEA392516A2CEA /* Blocks */ = {
+			isa = PBXGroup;
+			children = (
+				ACC55816A1004DA2A9A474AF /* MagicWindow */,
+			);
+			name = Blocks;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				2023D2EA9F8B4C02BD022B79 /* Resources.h */,
+				26BE01273F6D4C0CA5DF84F3 /* MagicWindowBasic_Prefix.pch */,
+			);
+			name = Headers;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FB34F5C4137F48F6B7DEFD00 /* CinderApp.icns */,
+				061C04D55BD440BABA581C3D /* Info.plist */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* MagicWindowBasic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "MagicWindowBasic" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MagicWindowBasic;
+			productInstallPath = "$(HOME)/Applications";
+			productName = MagicWindowBasic;
+			productReference = 8D1107320486CEB800E47090 /* MagicWindowBasic.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MagicWindowBasic" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* MagicWindowBasic */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* MagicWindowBasic */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				640ABA0549994ED6BAA24BBE /* CinderApp.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1AC5FA0EC9D4A2F957A1EF7 /* MagicWindowBasicApp.cpp in Sources */,
+				49F4AB54D20041AD922A719D /* Config.cpp in Sources */,
+				FE41B56157F5451D8081B79C /* Context.cpp in Sources */,
+				B2AF4462481C4A43B0E707A4 /* Controller.cpp in Sources */,
+				6B951B0D467548DBABC9B9CD /* Logger.cpp in Sources */,
+				6049FA1A4DD6400F84F79C06 /* MagicWindowApp.cpp in Sources */,
+				D22AEA62EE7449E58EF58721 /* State.cpp in Sources */,
+				A15D7F56940A4F9F8CB408BC /* StateMachine.cpp in Sources */,
+				FF0493D34DBE45278F5EDFB6 /* Transition.cpp in Sources */,
+				BAB5AA89D1C84D70AF59E424 /* Utils.cpp in Sources */,
+				A774BD914A4144A68B760EDE /* WindowConfig.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MagicWindowBasic_Prefix.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = MagicWindowBasic;
+				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_FAST_MATH = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NDEBUG=1",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MagicWindowBasic_Prefix.pch;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = MagicWindowBasic;
+				STRIP_INSTALLED_PRODUCT = YES;
+				SYMROOT = ./build;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CINDER_PATH = "../../../../..";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
+				ENABLE_TESTABILITY = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\"",
+					../../../include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CINDER_PATH = "../../../../..";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++11";
+				CLANG_CXX_LIBRARY = "libc++";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"\"$(CINDER_PATH)/include\"",
+					../../../include,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "\"$(CINDER_PATH)/include\" ../include";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "MagicWindowBasic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MagicWindowBasic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

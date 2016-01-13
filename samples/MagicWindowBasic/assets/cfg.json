@@ -1,0 +1,24 @@
+{
+    "app" : {
+        "cursor" : true,
+		"default_keys" : true,
+        "fullscreen" : false,
+        "params" : false,
+        "params_coords" : {
+            "x" : 50,
+            "y" : 50
+        },
+        "scale" : 0.5,
+        "window_mode" : "grid",
+        "windows" : {
+            "rows" : 2,
+            "columns" : 6,
+            "screen_width" : 1024,
+            "screen_height" : 512
+        }
+    },
+    "extras" : {
+        
+    }
+}
+
