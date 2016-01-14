@@ -1,6 +1,5 @@
 #include "MagicWindow/Logger.h"
 
-using namespace boost::posix_time;
 using namespace ci::app;
 using namespace ci::fs;
 using namespace magicwindow;
@@ -52,14 +51,10 @@ void Logger::log(std::string filename, std::string message, bool printToConsole)
 
     std::ofstream write(filepath.c_str());
     if (write.is_open()) {
-        ptime timestamp = microsec_clock::universal_time();
         write << text;
-        write << "[";
-        write << timestamp;
-        write << "] : ";
         write << message;
         write.close();
-        if (printToConsole) console() << timestamp << " : " << message << std::endl;
+        if (printToConsole) console() << message << std::endl;
     }
 }
 

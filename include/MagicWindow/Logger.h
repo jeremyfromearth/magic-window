@@ -5,9 +5,6 @@
 #include <fstream>
 #include <string>
 
-// boost
-#include <boost/date_time/posix_time/posix_time.hpp>
-
 // cinder
 #include "cinder/app/App.h"
 
