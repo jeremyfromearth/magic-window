@@ -33,3 +33,9 @@ Derived/Data/
 # OSX
 .DS_Store
 
+# Visual Studio
+Debug/
+Release/
+*.sdf
+*.user
+*.opensdf
