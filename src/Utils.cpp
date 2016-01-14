@@ -54,7 +54,7 @@ JsonTree json::mergeTrees(vector<JsonTree> & trees) {
 ////////////////////////////////////////////////////////////////////////////
 
 void loader::download(path src, path destination) {
-    BufferRef data = loadStreamBuffer(ci::loadUrlStream(src.c_str()));
+    BufferRef data = loadStreamBuffer(ci::loadUrlStream(src.string()));
     string tempFilename = src.filename().string() + ".tmp";
     data->write(writeFile(tempFilename));
     remove(destination.c_str());
