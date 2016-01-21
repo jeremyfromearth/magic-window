@@ -53,6 +53,7 @@ bool MagicWindowApp::initialize(std::string assetPath)  {
 void MagicWindowApp::initializeWindowConfiguration() {
     WindowRef window;
     JsonTree windowConfig = ctx.config.getWindowConfig();
+	float appScale = ctx.config.getAppScale();
 
     // A window for each display with width and height matching the display
     if (ctx.config.getWindowMode() == WindowConfig::DISPLAY_SPAN) {
@@ -80,26 +81,30 @@ void MagicWindowApp::initializeWindowConfiguration() {
     if (ctx.config.getWindowMode() == WindowConfig::DISPLAY_CUSTOM) {
         WindowRef window;
         for (JsonTree::Iter windowIt = windowConfig.begin(); windowIt != windowConfig.end(); windowIt++) {
-            float x, y, w, h;
-            //JsonTree coords = windowIt->getChild("coords");
             int index = std::distance(windowConfig.begin(), windowIt);
-            
-            x = windowIt->getChild("x").getValue<int>() * ctx.config.getAppScale();
-            y = windowIt->getChild("y").getValue<int>() * ctx.config.getAppScale();
-            w = windowIt->getChild("w").getValue<int>() * ctx.config.getAppScale();
-            h = windowIt->getChild("h").getValue<int>() * ctx.config.getAppScale();
+
+			int x = windowIt->getChild("x").getValue<int>();
+			int y = windowIt->getChild("y").getValue<int>();
+            int w = windowIt->getChild("w").getValue<int>();
+            int h = windowIt->getChild("h").getValue<int>();
+			int xs = x * appScale;
+			int ys = y * appScale;
+			int ws = w * appScale;
+			int hs = h * appScale;
 
             if (windowIt == windowConfig.begin()) {
                 window = getWindow();
-            }
-            else{
+            }else{
                 window = createWindow();
             }
 
-            window->setUserData(new WindowConfig(index, Rectf(x, y, x + w, y + h), vec2(), false));
+            window->setUserData(
+				new WindowConfig(index, 
+				Rectf(x, y, x + w, y + h), vec2(-x, -y), false));
+
             window->setBorderless();
-            window->setPos(x, y);
-            window->setSize(w, h);
+            window->setPos(xs, ys);
+            window->setSize(ws, hs);
             if (ctx.config.getFullScreen()) window->setFullScreen();
         }
     }
@@ -108,8 +113,10 @@ void MagicWindowApp::initializeWindowConfiguration() {
         WindowRef window;
         int rows = json::get(windowConfig, "rows", 1);
         int cols = json::get(windowConfig, "columns", 1);
-        int w = json::get(windowConfig, "screen_width", 960) * ctx.config.getAppScale();
-        int h = json::get(windowConfig, "screen_height", 540) * ctx.config.getAppScale();
+		int w = json::get(windowConfig, "screen_width", 960);
+		int h = json::get(windowConfig, "screen_height", 540);
+		int ws = w * ctx.config.getAppScale();
+		int hs = h * ctx.config.getAppScale();
         
         int index = 0;
         for(int r = 0; r < rows; r++) {
@@ -124,6 +131,8 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 // Calculate the coordinates of each window
                 int x = c * w;
                 int y = r * h;
+				int xs = x * ctx.config.getAppScale();
+				int ys = y * ctx.config.getAppScale();
                 
                 #if defined CINDER_MAC
                 // This is an ugly hack to account for the OSX toolbar
@@ -131,10 +140,11 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 #endif
                 
                 window->setBorderless();
-                window->setSize(w, h);
-                window->setPos(x, y);
+                window->setSize(ws, hs);
+                window->setPos(xs, ys);
+
                 window->setAlwaysOnTop();
-                window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(), false));
+                window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(-x, -y), false));
                 if(ctx.config.getFullScreen()) window->setFullScreen();
                 index++;
             }
@@ -166,8 +176,8 @@ void MagicWindowApp::draw() {
             gl::clear();
             ctx.signals.preDrawTransform.emit();
             gl::pushMatrices();
-            gl::translate(-data->getTranslation());
-            gl::scale(vec3(ctx.config.getAppScale(), ctx.config.getAppScale(), ctx.config.getAppScale()));
+			gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
+			gl::translate(data->getTranslation());
             ctx.signals.draw.emit();
             gl::popMatrices();
             ctx.signals.postDrawTransform.emit();
