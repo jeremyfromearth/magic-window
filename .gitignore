@@ -36,6 +36,7 @@ Derived/Data/
 # Visual Studio
 Debug/
 Release/
+*.sou
 *.sdf
 *.user
 *.opensdf

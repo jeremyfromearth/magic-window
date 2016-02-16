@@ -143,7 +143,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 window->setSize(ws, hs);
                 window->setPos(xs, ys);
 
-                window->setAlwaysOnTop();
+                //window->setAlwaysOnTop();
                 window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(-x, -y), false));
                 if(ctx.config.getFullScreen()) window->setFullScreen();
                 index++;

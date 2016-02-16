@@ -6,10 +6,13 @@
       git = "git@github.com:jeremynealbrown/magic-window.git"
       license="MIT"
       name="MagicWindow"
-      summary="A modular codebase for developing interactive projects with Cinder.">
-        <headerPattern>include/MagicWindow/*.h</headerPattern>
-        <sourcePattern>src/*.cpp</sourcePattern>
-        <includePath system="true">include</includePath>  
+      summary="A modular codebase for developing interactive projects with Cinder."
+      url="https://github.com/jeremynealbrown/magic-window"
+	  git="https://github.com/jeremynealbrown/magic-window.git">
+      <headerPattern>include/MagicWindow/*.h</headerPattern>
+      <sourcePattern>src/*.cpp</sourcePattern>
+      <includePath>include</includePath>
+      <copyExclude>samples</copyExclude>
     </block>
   <template>templates/MagicWindowTemplate/template.xml</template>
 </cinder>

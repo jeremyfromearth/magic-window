@@ -8,10 +8,7 @@ namespace magicwindow {
         ///////////////////////////////////////////////////////////////
         // Constructor
         ///////////////////////////////////////////////////////////////
-        Timer() {
-            duration = 0.0f;
-            start = ci::app::getElapsedSeconds();
-        }
+		Timer();
     
         ///////////////////////////////////////////////////////////////
         // Getter / Setter
@@ -19,47 +16,33 @@ namespace magicwindow {
         /**
          * Get and set the duration of the stopwatch
          */
-        float getDuration() { return duration; }
-        void setDuration(float d) { duration = d; }
+		float getDuration();
+		void setDuration(float d);
 
         /**
          * Set the duration of the stop watch and reset it
          */
-        void setDuration(float d, bool autoReset) {
-            duration = d;
-            if(autoReset) reset();
-        }
+		void setDuration(float d, bool autoReset);
     
         /**
          * Returns a float indicating what percent the stopwatch is complete
          */
-        float getPercentComplete() {
-            float current = (float)ci::app::getElapsedSeconds();
-            return (current - (float)start) / (float)duration;
-        }
+		float getPercentComplete();
     
         /**
          * Returns a float indicating the elapsed seconds since the stopwatch was last reset
          */
-        float getElapsedSeconds() {
-            float current = ci::app::getElapsedSeconds();
-            return current - start;
-        }
+		float getElapsedSeconds();
 
         /**
          * Returns a boolean indicating whether or not the stopwatch is complete
          */
-        bool isComplete() {
-            float current = ci::app::getElapsedSeconds();
-            return (current - start) > duration;
-        }
+		bool isComplete();
     
         /**
          * Resets the stopwatch
          */
-        void reset() {
-            start = ci::app::getElapsedSeconds();
-        }
+		void reset();
     
     private:
         float start;
