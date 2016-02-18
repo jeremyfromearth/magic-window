@@ -176,8 +176,8 @@ void MagicWindowApp::draw() {
             gl::clear();
             ctx.signals.preDrawTransform.emit();
             gl::pushMatrices();
-			gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
-			gl::translate(data->getTranslation());
+			      gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
+			      gl::translate(data->getTranslation());
             ctx.signals.draw.emit();
             gl::popMatrices();
             ctx.signals.postDrawTransform.emit();
@@ -188,6 +188,7 @@ void MagicWindowApp::draw() {
 void MagicWindowApp::fileDrop(FileDropEvent e) { ctx.signals.fileDrop.emit(e); }
 
 void MagicWindowApp::update() {
+    ctx.info.averageFps = getAverageFps();
     if (ctx.config.doShowParams() && ctx.params) {
         ctx.params->setOptions("FPS", "label='FPS: " + toString(getAverageFps()) + "'");
     }

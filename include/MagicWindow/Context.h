@@ -5,6 +5,7 @@
 // hexa
 #include "MagicWindow/Config.h"
 #include "MagicWindow/Logger.h"
+#include "MagicWindow/RuntimeInfo.h"
 #include "MagicWindow/StateMachine.h"
 #include "MagicWindow/Signals.h"
 
@@ -21,6 +22,7 @@ namespace magicwindow {
         ///////////////////////////////////////////////////////////////
         Config config;
         Signals signals;
+        RuntimeInfo info;
         StateMachine state;
         ci::params::InterfaceGlRef params;
         
