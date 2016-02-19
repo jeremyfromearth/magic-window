@@ -220,4 +220,4 @@ void MagicWindowApp::mouseDrag(MouseEvent e) { ctx.signals.mouseDrag.emit(e); }
 void MagicWindowApp::mouseMove(MouseEvent e) { ctx.signals.mouseMove.emit(e); }
 void MagicWindowApp::mouseUp(MouseEvent e) { ctx.signals.mouseUp.emit(e); }
 void MagicWindowApp::mouseWheel(MouseEvent e) { ctx.signals.mouseWheel.emit(e); }
-void MagicWindowApp::shutdown() { ctx.signals.shutdown.emit(); }
+void MagicWindowApp::cleanup() { ctx.signals.cleanup.emit(); }

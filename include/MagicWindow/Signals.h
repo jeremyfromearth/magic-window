@@ -31,6 +31,7 @@ namespace magicwindow {
         ci::signals::Signal<void(ci::app::KeyEvent event)> keyDown;
         ci::signals::Signal<void(ci::app::KeyEvent event)> keyUp;
         ci::signals::Signal<void(ci::app::FileDropEvent e)> fileDrop;
+        ci::signals::Signal<void()> cleanup;
         ci::signals::Signal<void()> shutdown;
     };
 }

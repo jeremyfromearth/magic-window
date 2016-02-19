@@ -35,25 +35,25 @@ namespace magicwindow {
         /**
          * The main update call
          */
-        void update();
+        void update() override;
 
         /**
          * The main draw call
          */
-        void draw();
+        void draw() override;
 
         /**
          * Override key and mouse events and pass them to the global emitter
          */
-        void fileDrop(ci::app::FileDropEvent e);
-        void keyDown(ci::app::KeyEvent e);
-        void keyUp(ci::app::KeyEvent e);
-        void mouseDown(ci::app::MouseEvent e);
-        void mouseDrag(ci::app::MouseEvent e);
-        void mouseMove(ci::app::MouseEvent e);
-        void mouseUp(ci::app::MouseEvent e);
-        void mouseWheel(ci::app::MouseEvent e);
-        void shutdown();
+        void fileDrop(ci::app::FileDropEvent e) override;
+        void keyDown(ci::app::KeyEvent e) override;
+        void keyUp(ci::app::KeyEvent e) override;
+        void mouseDown(ci::app::MouseEvent e) override;
+        void mouseDrag(ci::app::MouseEvent e) override;
+        void mouseMove(ci::app::MouseEvent e) override;
+        void mouseUp(ci::app::MouseEvent e) override;
+        void mouseWheel(ci::app::MouseEvent e) override;
+        void cleanup() override;
 
     protected:
         ///////////////////////////////////////////////////////////////
