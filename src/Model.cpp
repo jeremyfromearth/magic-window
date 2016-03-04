@@ -1,5 +1,5 @@
 #include "MagicWindow/Model.h"
-
+#include "cinder/app/App.h"
 using namespace magicwindow;
 
 Model::Model(ci::JsonTree & data) : raw(data) {

@@ -52,6 +52,15 @@ namespace magicwindow {
         }
 
         /**
+         * Add models of type M using raw json data
+         */
+        void add(ci::JsonTree data) {
+            for (auto obj : data) {
+                add(M(obj));
+            }
+        }
+
+        /**
          * Returns the model at the supplied index
          */
         M & at(int index) {
