@@ -20,7 +20,7 @@ namespace magicwindow {
         ci::fs::path getAssetPath() { return assetPath; }
         bool doShowCursor() { return showCursor; }
         bool doShowParams() { return showParams; }
-        ci::vec2 getParamWindowCoords() { return getParamWindowCoords(); }
+        ci::vec2 getParamWindowCoords() { return paramsWindowCoords; }
         bool getDefaultKeyHandlersEnabled() { return defaultKeyHandlersEnabled; }
         ci::JsonTree & getExtras() { return extras; }
         bool getFullScreen() { return fullscreen; }
