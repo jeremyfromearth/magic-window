@@ -143,7 +143,6 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 window->setSize(ws, hs);
                 window->setPos(xs, ys);
 
-                //window->setAlwaysOnTop();
                 window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(-x, -y), false));
                 if(ctx.config.getFullScreen()) window->setFullScreen();
                 index++;
@@ -170,14 +169,16 @@ void MagicWindowApp::draw() {
 
     if (data) {
         if (data->isDebugWindow()) {
-            gl::clear(Color::black());
+            gl::clear();
             ctx.params->draw();
         } else {
             gl::clear();
             ctx.signals.preDrawTransform.emit();
+            
             gl::pushMatrices();
-			      gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
-			      gl::translate(data->getTranslation());
+			gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
+			gl::translate(data->getTranslation());
+            
             ctx.signals.draw.emit();
             gl::popMatrices();
             ctx.signals.postDrawTransform.emit();
