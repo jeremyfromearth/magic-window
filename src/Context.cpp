@@ -2,6 +2,4 @@
 
 using namespace magicwindow;
 
-Context::Context() : logger(signals) {
-
-}
+Context::Context() : logger(signals) {}

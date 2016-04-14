@@ -14,6 +14,19 @@
 #include "cinder/app/App.h"
 
 namespace magicwindow {
+    class env {
+    public:
+        static std::string get(std::string key, std::string defaultValue) {
+            auto val = std::getenv(key.c_str());
+            if (val == NULL) {
+                return defaultValue;
+            }
+            else {
+                return std::string(val);
+            }
+        }
+    };
+
     class json {
     public:
         ///////////////////////////////////////////////////////////////
