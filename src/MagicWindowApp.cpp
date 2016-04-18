@@ -154,7 +154,6 @@ void MagicWindowApp::initializeWindowConfiguration() {
         WindowRef window = createWindow();
         window->setUserData(new WindowConfig(-1, Rectf(), vec2(), true));
         window->setSize(300, 500);
-        window->setAlwaysOnTop(true);
         window->setPos(ctx.config.getParamWindowCoords());
         ctx.params = InterfaceGl::create(window, "Debug Params", vec2(265, 465));
         ctx.params->addText("FPS", "label='FPS should display here'");
