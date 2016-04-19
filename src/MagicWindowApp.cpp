@@ -9,6 +9,7 @@ using namespace magicwindow;
 // Public Methods
 //
 bool MagicWindowApp::initialize(std::string assetPath)  {
+    
     if (assetPath != "") {
         addAssetDirectory(getDocumentsDirectory() /= assetPath);
     }
@@ -51,6 +52,7 @@ bool MagicWindowApp::initialize(std::string assetPath)  {
 }
 
 void MagicWindowApp::initializeWindowConfiguration() {
+    
     WindowRef window;
     JsonTree windowConfig = ctx.config.getWindowConfig();
 	float appScale = ctx.config.getAppScale();
@@ -73,6 +75,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
             window->setPos(bounds.getUpperLeft());
             window->setSize(bounds.getSize());
             window->setBorderless();
+            windows.emplace(window);
             if (ctx.config.getFullScreen()) window->setFullScreen();
         }
     }
@@ -105,6 +108,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
             window->setBorderless();
             window->setPos(xs, ys);
             window->setSize(ws, hs);
+            windows.emplace(window);
             if (ctx.config.getFullScreen()) window->setFullScreen();
         }
     }
@@ -118,6 +122,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
 		int ws = w * ctx.config.getAppScale();
 		int hs = h * ctx.config.getAppScale();
         
+        
         int index = 0;
         for(int r = 0; r < rows; r++) {
             for(int c = 0; c < cols; c++) {
@@ -127,6 +132,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 } else {
                     window = createWindow();
                 }
+                
                 
                 // Calculate the coordinates of each window
                 int x = c * w;
@@ -142,10 +148,13 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 window->setBorderless();
                 window->setSize(ws, hs);
                 window->setPos(xs, ys);
-
+                
+                
                 window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(-x, -y), false));
                 if(ctx.config.getFullScreen()) window->setFullScreen();
+                windows.emplace(window);
                 index++;
+                
             }
         }
     }
@@ -158,6 +167,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
         ctx.params = InterfaceGl::create(window, "Debug Params", vec2(265, 465));
         ctx.params->addText("FPS", "label='FPS should display here'");
         ctx.params->addSeparator();
+        windows.emplace(window);
     }
 }
 
@@ -197,6 +207,7 @@ void MagicWindowApp::update() {
 }
 
 void MagicWindowApp::keyDown(KeyEvent e) {
+    
     if (ctx.config.getDefaultKeyHandlersEnabled()) {
         switch (e.getCode()) {
         case KeyEvent::KEY_ESCAPE:
@@ -219,4 +230,13 @@ void MagicWindowApp::mouseDrag(MouseEvent e) { ctx.signals.mouseDrag.emit(e); }
 void MagicWindowApp::mouseMove(MouseEvent e) { ctx.signals.mouseMove.emit(e); }
 void MagicWindowApp::mouseUp(MouseEvent e) { ctx.signals.mouseUp.emit(e); }
 void MagicWindowApp::mouseWheel(MouseEvent e) { ctx.signals.mouseWheel.emit(e); }
-void MagicWindowApp::cleanup() { ctx.signals.cleanup.emit(); }
+void MagicWindowApp::cleanup() { 
+    ctx.signals.cleanup.emit();
+    for (auto window : windows) {
+        if (window != nullptr) {
+            window->close();
+        }
+    }
+    windows.clear();
+    App::cleanup();
+}

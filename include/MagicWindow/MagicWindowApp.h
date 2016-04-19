@@ -60,5 +60,6 @@ namespace magicwindow {
         // Properties
         ///////////////////////////////////////////////////////////////
         Context ctx;
+        std::set<ci::app::WindowRef> windows;
     };
 }
