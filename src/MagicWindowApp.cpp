@@ -100,7 +100,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
 
             window->setUserData(
 				new WindowConfig(index, 
-				Rectf(x, y, x + w, y + h), vec2(-x, -y), false));
+				Rectf(x, y, x + w, y + h), vec2(-x, -y)));
 
             window->setBorderless();
             window->setPos(xs, ys);
@@ -142,7 +142,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 window->setSize(ws, hs);
                 window->setPos(xs, ys);
                 
-                window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(-x, -y), false));
+                window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(-x, -y)));
                 if(ctx.config.getFullScreen()) window->setFullScreen();
                 
                 index++;
@@ -151,7 +151,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
     }
 
     paramsWindow = createWindow();
-    paramsWindow->setUserData(new WindowConfig(-1, Rectf(), vec2(), true));
+    paramsWindow->setUserData(new WindowConfig(-1, Rectf(), vec2()));
     paramsWindow->setSize(500, 300);
     paramsWindow->setPos(ctx.config.getParamWindowCoords());
     ctx.params = InterfaceGl::create(paramsWindow, "Debug Params", vec2(470, 270));
@@ -169,16 +169,17 @@ void MagicWindowApp::draw() {
     WindowConfig * data = window->getUserData<WindowConfig>();
     gl::setMatricesWindow(getWindowSize());
 
-    if (data) {
-        if (data->isDebugWindow()) {
-            gl::clear();
-            ctx.params->draw();
-        } else {
+    if (window == paramsWindow) {
+        gl::clear();
+        ctx.params->draw();
+    }
+    else {
+        if (data) {
             gl::clear();
             ctx.signals.preDrawTransform.emit();
             gl::pushMatrices();
-			gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
-			gl::translate(data->getTranslation());
+            gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
+            gl::translate(data->getTranslation());
             ctx.signals.draw.emit();
             gl::popMatrices();
             ctx.signals.postDrawTransform.emit();

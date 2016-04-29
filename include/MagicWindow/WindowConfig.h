@@ -47,18 +47,16 @@ namespace magicwindow {
         static const std::string DISPLAY_GRID;
     
     public:
-        WindowConfig(int windowId, ci::Rectf windowBounds, ci::vec2 originTranslation, bool isDebug = false) :
-            id(windowId), bounds(windowBounds), translation(originTranslation), debug(isDebug) {}
+        WindowConfig(int windowId, ci::Rectf windowBounds, ci::vec2 originTranslation) :
+            id(windowId), bounds(windowBounds), translation(originTranslation) {}
 
         int getId() { return id; }
-        bool isDebugWindow() { return debug; }
         ci::Rectf getBounds() { return bounds; }
         ci::vec2 getTranslation() { return translation; }
 
     private:
         ci::Rectf bounds;
         int id;
-        bool debug;
         ci::vec2 translation;
     };
 }
