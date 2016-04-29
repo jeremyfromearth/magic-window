@@ -52,7 +52,6 @@ bool MagicWindowApp::initialize(std::string assetPath)  {
 }
 
 void MagicWindowApp::initializeWindowConfiguration() {
-    
     WindowRef window;
     JsonTree windowConfig = ctx.config.getWindowConfig();
 	float appScale = ctx.config.getAppScale();
@@ -75,14 +74,12 @@ void MagicWindowApp::initializeWindowConfiguration() {
             window->setPos(bounds.getUpperLeft());
             window->setSize(bounds.getSize());
             window->setBorderless();
-            windows.emplace(window);
             if (ctx.config.getFullScreen()) window->setFullScreen();
         }
     }
 
     // As many windows as defined in the window_config variable
     if (ctx.config.getWindowMode() == WindowConfig::DISPLAY_CUSTOM) {
-        WindowRef window;
         for (JsonTree::Iter windowIt = windowConfig.begin(); windowIt != windowConfig.end(); windowIt++) {
             int index = std::distance(windowConfig.begin(), windowIt);
 
@@ -108,20 +105,17 @@ void MagicWindowApp::initializeWindowConfiguration() {
             window->setBorderless();
             window->setPos(xs, ys);
             window->setSize(ws, hs);
-            windows.emplace(window);
             if (ctx.config.getFullScreen()) window->setFullScreen();
         }
     }
     
     if (ctx.config.getWindowMode() == WindowConfig::DISPLAY_GRID) {
-        WindowRef window;
         int rows = json::get(windowConfig, "rows", 1);
         int cols = json::get(windowConfig, "columns", 1);
 		int w = json::get(windowConfig, "screen_width", 960);
 		int h = json::get(windowConfig, "screen_height", 540);
 		int ws = w * ctx.config.getAppScale();
 		int hs = h * ctx.config.getAppScale();
-        
         
         int index = 0;
         for(int r = 0; r < rows; r++) {
@@ -132,7 +126,6 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 } else {
                     window = createWindow();
                 }
-                
                 
                 // Calculate the coordinates of each window
                 int x = c * w;
@@ -149,26 +142,26 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 window->setSize(ws, hs);
                 window->setPos(xs, ys);
                 
-                
                 window->setUserData(new WindowConfig(index, Rectf(x, y, w, h), vec2(-x, -y), false));
                 if(ctx.config.getFullScreen()) window->setFullScreen();
-                windows.emplace(window);
-                index++;
                 
+                index++;
             }
         }
     }
 
-    if (ctx.config.doShowParams()) {
-        WindowRef window = createWindow();
-        window->setUserData(new WindowConfig(-1, Rectf(), vec2(), true));
-        window->setSize(300, 500);
-        window->setPos(ctx.config.getParamWindowCoords());
-        ctx.params = InterfaceGl::create(window, "Debug Params", vec2(265, 465));
-        ctx.params->addText("FPS", "label='FPS should display here'");
-        ctx.params->addSeparator();
-        windows.emplace(window);
-    }
+    paramsWindow = createWindow();
+    paramsWindow->setUserData(new WindowConfig(-1, Rectf(), vec2(), true));
+    paramsWindow->setSize(500, 300);
+    paramsWindow->setPos(ctx.config.getParamWindowCoords());
+    ctx.params = InterfaceGl::create(paramsWindow, "Debug Params", vec2(470, 270));
+    ctx.params->addText("FPS", "label='FPS should display here'");
+    ctx.params->addSeparator();
+    paramsWindowIsAvailable = true;
+    if (!ctx.config.doShowParams()) paramsWindow->hide();
+    paramsWindow->getSignalClose().connect([&] {
+        paramsWindowIsAvailable = false;
+    });
 }
 
 void MagicWindowApp::draw() {
@@ -183,7 +176,6 @@ void MagicWindowApp::draw() {
         } else {
             gl::clear();
             ctx.signals.preDrawTransform.emit();
-            
             gl::pushMatrices();
 			gl::scale(ctx.config.getAppScale(), ctx.config.getAppScale());
 			gl::translate(data->getTranslation());
@@ -207,7 +199,6 @@ void MagicWindowApp::update() {
 }
 
 void MagicWindowApp::keyDown(KeyEvent e) {
-    
     if (ctx.config.getDefaultKeyHandlersEnabled()) {
         switch (e.getCode()) {
         case KeyEvent::KEY_ESCAPE:
@@ -217,6 +208,11 @@ void MagicWindowApp::keyDown(KeyEvent e) {
             if (e.isControlDown()) {
                 ctx.config.setCursorVisibility(!ctx.config.doShowCursor());
                 ctx.config.doShowCursor() ? showCursor() : hideCursor();
+            }
+            break;
+        case KeyEvent::KEY_p:
+            if (paramsWindowIsAvailable) {
+                paramsWindow->isHidden() ? paramsWindow->show() : paramsWindow->hide();
             }
             break;
         }
@@ -232,11 +228,5 @@ void MagicWindowApp::mouseUp(MouseEvent e) { ctx.signals.mouseUp.emit(e); }
 void MagicWindowApp::mouseWheel(MouseEvent e) { ctx.signals.mouseWheel.emit(e); }
 void MagicWindowApp::cleanup() { 
     ctx.signals.cleanup.emit();
-    for (auto window : windows) {
-        if (window != nullptr) {
-            window->close();
-        }
-    }
-    windows.clear();
     App::cleanup();
 }
