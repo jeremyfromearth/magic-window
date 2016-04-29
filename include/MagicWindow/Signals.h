@@ -24,10 +24,6 @@ namespace magicwindow {
         ci::signals::Signal<void(ci::app::MouseEvent event)> mouseMove;
         ci::signals::Signal<void(ci::app::MouseEvent event)> mouseUp;
         ci::signals::Signal<void(ci::app::MouseEvent event)> mouseWheel;
-        ci::signals::Signal<void()> clearErrorLog;
-        ci::signals::Signal<void()> clearMessageLog;
-        ci::signals::Signal<void(std::string message, bool printToConsole)> logError;
-        ci::signals::Signal<void(std::string message, bool printToConsole)> logMessage;
         ci::signals::Signal<void(ci::app::KeyEvent event)> keyDown;
         ci::signals::Signal<void(ci::app::KeyEvent event)> keyUp;
         ci::signals::Signal<void(ci::app::FileDropEvent e)> fileDrop;

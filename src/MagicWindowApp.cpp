@@ -18,8 +18,8 @@ bool MagicWindowApp::initialize(std::string assetPath)  {
     try {
         cfgData = loadAsset("cfg.json");
     }
-    catch (AssetLoadExc exception) {
-        ctx.signals.logError.emit("Could not load cfg.json.\n" + toString(exception.what()), true);
+    catch (AssetLoadExc exc) {
+        CI_LOG_EXCEPTION("Could not load config file. Goodbye.", exc);
         quit();
         return false;
     }
@@ -27,13 +27,8 @@ bool MagicWindowApp::initialize(std::string assetPath)  {
     JsonTree cfg;
     try {
         cfg = JsonTree(cfgData);
-    } catch (JsonTree::ExcJsonParserError exception) {
-        ctx.signals.logError.emit("Could not parse cfg.json.\n" + toString(exception.what()), true);
-        quit();
-        return false;
-    }
-    catch (JsonTree::ExcChildNotFound exception) {
-        ctx.signals.logError.emit("Could not parse cfg.json.\n" + toString(exception.what()), true);
+    } catch (std::exception exc) {
+        CI_LOG_EXCEPTION("Could not parse the config file. Adios.", exc);
         quit();
         return false;
     }
@@ -42,7 +37,8 @@ bool MagicWindowApp::initialize(std::string assetPath)  {
         ctx.config.initialize(cfg);
     }
     catch (std::exception exc) {
-        console() << exc.what() << std::endl;
+        CI_LOG_EXCEPTION("Could not initialize.", exc);
+        quit();
     }
     
     ctx.config.setAssetPath(assetPath);

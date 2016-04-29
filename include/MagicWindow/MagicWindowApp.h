@@ -3,6 +3,7 @@
 // cinder
 #include "cinder/Display.h"
 #include "cinder/Json.h"
+#include "cinder/Log.h"
 #include "cinder/app/App.h"
 #include "cinder/gl/gl.h"
 
