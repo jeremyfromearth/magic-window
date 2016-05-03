@@ -9,7 +9,7 @@ void Config::initialize(JsonTree config) {
     appNode = config.getChild("app");
     appScale = json::get<float>(config, "app/scale", 1.0f);
     defaultKeyHandlersEnabled = json::get<bool>(config, "app/default_keys", true);
-    extras = config.getChild("extras");
+    if (config.hasChild("extras")) extras = config.getChild("extras");
     fullscreen = json::get<bool>(config, "app/fullscreen", true);
     paramsWindowCoords = vec2(
         json::get<int>(config, "app/params_coords/x", 0),

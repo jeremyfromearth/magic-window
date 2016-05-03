@@ -8,6 +8,21 @@ using namespace magicwindow;
 //
 // Public Methods
 //
+
+bool MagicWindowApp::initialize(JsonTree data) {
+    try {
+        ctx.config.initialize(data);
+    }
+    catch (std::exception exc) {
+        CI_LOG_EXCEPTION("Could not initialize.", exc);
+        return false;
+    }
+
+    ctx.config.doShowCursor() ? showCursor() : hideCursor();
+    initializeWindowConfiguration();
+    return true;
+}
+
 bool MagicWindowApp::initialize(std::string configFilename)  {
     DataSourceRef cfgData;
     try {
@@ -15,31 +30,16 @@ bool MagicWindowApp::initialize(std::string configFilename)  {
     }
     catch (AssetLoadExc exc) {
         CI_LOG_EXCEPTION("Could not load config file. Goodbye.", exc);
-        quit();
         return false;
     }
 
-    JsonTree cfg;
     try {
-        cfg = JsonTree(cfgData);
-    } catch (std::exception exc) {
-        CI_LOG_EXCEPTION("Could not parse the config file. Adios.", exc);
-        quit();
-        return false;
-    }
-    
-    try {
-        ctx.config.initialize(cfg);
+        return initialize(JsonTree(cfgData));
     }
     catch (std::exception exc) {
-        CI_LOG_EXCEPTION("Could not initialize.", exc);
-        quit();
+        CI_LOG_EXCEPTION("Could not parse the config file. Adios.", exc);
+        return false;
     }
-    
-    //ctx.config.setAssetPath(assetPath);
-    ctx.config.doShowCursor() ? showCursor() : hideCursor();
-    initializeWindowConfiguration();
-    return true;
 }
 
 void MagicWindowApp::initializeWindowConfiguration() {

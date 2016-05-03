@@ -27,6 +27,12 @@ namespace magicwindow {
         bool initialize(std::string configFilename = "cfg.json");
 
         /**
+         * Initializes the application, config and windows
+         * data - config data as json
+         */
+        bool initialize(ci::JsonTree data);
+
+        /**
          * Create windows based on config variables. This method must be called by a sub-classing application.
          */
         void initializeWindowConfiguration();
