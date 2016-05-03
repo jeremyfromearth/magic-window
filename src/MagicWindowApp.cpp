@@ -8,15 +8,10 @@ using namespace magicwindow;
 //
 // Public Methods
 //
-bool MagicWindowApp::initialize(std::string assetPath)  {
-    
-    if (assetPath != "") {
-        addAssetDirectory(getDocumentsDirectory() /= assetPath);
-    }
-
+bool MagicWindowApp::initialize(std::string configFilename)  {
     DataSourceRef cfgData;
     try {
-        cfgData = loadAsset("cfg.json");
+        cfgData = loadAsset(configFilename);
     }
     catch (AssetLoadExc exc) {
         CI_LOG_EXCEPTION("Could not load config file. Goodbye.", exc);
@@ -41,7 +36,7 @@ bool MagicWindowApp::initialize(std::string assetPath)  {
         quit();
     }
     
-    ctx.config.setAssetPath(assetPath);
+    //ctx.config.setAssetPath(assetPath);
     ctx.config.doShowCursor() ? showCursor() : hideCursor();
     initializeWindowConfiguration();
     return true;

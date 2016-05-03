@@ -17,7 +17,6 @@ namespace magicwindow {
         ///////////////////////////////////////////////////////////////
         const ci::JsonTree & getApp() { return appNode; }
         float getAppScale() { return appScale; }
-        ci::fs::path getAssetPath() { return assetPath; }
         bool doShowCursor() { return showCursor; }
         bool doShowParams() { return showParams; }
         ci::vec2 getParamWindowCoords() { return paramsWindowCoords; }
@@ -31,7 +30,6 @@ namespace magicwindow {
         // Setters
         ///////////////////////////////////////////////////////////////
         void setCursorVisibility(bool v) { showCursor = v; }
-        void setAssetPath(std::string assetDirPath) { assetPath = ci::fs::path(assetDirPath); }
         void initialize(ci::JsonTree cfgData);
     
     private:
@@ -40,7 +38,6 @@ namespace magicwindow {
         ///////////////////////////////////////////////////////////////
         ci::JsonTree appNode;
         float appScale;
-        ci::fs::path assetPath;
         bool showCursor;
         bool showParams;
         ci::vec2 paramsWindowCoords;

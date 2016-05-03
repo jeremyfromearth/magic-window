@@ -20,13 +20,11 @@ namespace magicwindow {
         ///////////////////////////////////////////////////////////////
         /**
          * Initializes the application, config and windows
-         * assetPath - the path to the folder appended to
-         * the native Documents directory containing
-         * cfg.json, errors.txt and log.txt
+         * configFilename - config file name
          *
          * returns bool indicating that initialization was successful
          */
-        bool initialize(std::string assetPath = "");
+        bool initialize(std::string configFilename = "cfg.json");
 
         /**
          * Create windows based on config variables. This method must be called by a sub-classing application.
