@@ -6,10 +6,10 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/lexical_cast.hpp>
 
-
 // cinder
 #include "cinder/Buffer.h"
 #include "cinder/Json.h"
+#include "cinder/Log.h"
 #include "cinder/gl/gl.h"
 #include "cinder/app/App.h"
 
@@ -55,7 +55,19 @@ namespace magicwindow {
                         return defaultValue;
                     }
                 }
-                return child.getValue<T>();
+
+                if (child.getNodeType() == JsonTree::NodeType::NODE_NULL) {
+                    return defaultValue;
+                }
+
+                try {
+                    return child.getValue<T>();
+                }
+                catch(std::exception exc) {
+                    CI_LOG_EXCEPTION("Type conversion was not possible for: " + path + ". Returning supplied default value.", exc);
+                    return defaultValue;
+                }
+                
             }
             return defaultValue;
         }
