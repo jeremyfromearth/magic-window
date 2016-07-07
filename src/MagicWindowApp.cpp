@@ -175,6 +175,10 @@ void MagicWindowApp::draw() {
             gl::popMatrices();
             ctx.signals.postDrawTransform.emit();
         }
+        else {
+            gl::clear();
+            ctx.signals.draw.emit();
+        }
     }
 }
 
