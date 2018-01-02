@@ -43,24 +43,29 @@ bool MagicWindowApp::initialize(std::string configFilename)  {
 }
 
 void MagicWindowApp::initializeWindowConfiguration() {
-    WindowRef window;
+    
+    float appScale = ctx.config.getAppScale();
     JsonTree windowConfig = ctx.config.getWindowConfig();
-	float appScale = ctx.config.getAppScale();
-
+	
+    paramsWindow = getWindow();
+    paramsWindow->setUserData(new WindowConfig(-1, Rectf(), vec2()));
+    paramsWindow->setSize(500, 300);
+    paramsWindow->setPos(ctx.config.getParamWindowCoords());
+    ctx.params = InterfaceGl::create(paramsWindow, "Debug Params", vec2(470, 270));
+    ctx.params->addText("FPS", "label='FPS should display here'");
+    ctx.params->addSeparator();
+    paramsWindowIsAvailable = true;
+    if (!ctx.config.doShowParams()) paramsWindow->hide();
+    paramsWindow->getSignalClose().connect([&] {
+        paramsWindowIsAvailable = false;
+    });
+    
     // A window for each display with width and height matching the display
     if (ctx.config.getWindowMode() == WindowConfig::DISPLAY_SPAN) {
-        
         std::vector<DisplayRef> displays = Display::getDisplays();
-        
         for (int i = 0; i < displays.size(); i++) {
-            if (i == 0) {
-                window = getWindow();
-            }
-            else {
-                window = createWindow();
-            }
-
             Rectf bounds = displays[i]->getBounds();
+            WindowRef window = createWindow();
             window->setUserData(new WindowConfig(i, bounds, vec2()));
             window->setPos(bounds.getUpperLeft());
             window->setSize(bounds.getSize());
@@ -68,7 +73,8 @@ void MagicWindowApp::initializeWindowConfiguration() {
             if (ctx.config.getFullScreen()) window->setFullScreen();
         }
     }
-
+    
+    
     // As many windows as defined in the window_config variable
     if (ctx.config.getWindowMode() == WindowConfig::DISPLAY_CUSTOM) {
         for (JsonTree::Iter windowIt = windowConfig.begin(); windowIt != windowConfig.end(); windowIt++) {
@@ -83,12 +89,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
 			int ws = w * appScale;
 			int hs = h * appScale;
 
-            if (windowIt == windowConfig.begin()) {
-                window = getWindow();
-            }else{
-                window = createWindow();
-            }
-
+            WindowRef window = createWindow();
             window->setUserData(
 				new WindowConfig(index, 
 				Rectf(x, y, x + w, y + h), vec2(-x, -y)));
@@ -111,13 +112,6 @@ void MagicWindowApp::initializeWindowConfiguration() {
         int index = 0;
         for(int r = 0; r < rows; r++) {
             for(int c = 0; c < cols; c++) {
-                // User the default window if this is the first iteration
-                if(r == 0 && c == 0) {
-                    window = getWindow();
-                } else {
-                    window = createWindow();
-                }
-                
                 // Calculate the coordinates of each window
                 int x = c * w;
                 int y = r * h;
@@ -129,6 +123,7 @@ void MagicWindowApp::initializeWindowConfiguration() {
                 if(!ctx.config.getFullScreen()) if(r != 0) y += 23;
                 #endif
                 
+                WindowRef window = createWindow();
                 window->setBorderless();
                 window->setSize(ws, hs);
                 window->setPos(xs, ys);
@@ -140,19 +135,6 @@ void MagicWindowApp::initializeWindowConfiguration() {
             }
         }
     }
-
-    paramsWindow = createWindow();
-    paramsWindow->setUserData(new WindowConfig(-1, Rectf(), vec2()));
-    paramsWindow->setSize(500, 300);
-    paramsWindow->setPos(ctx.config.getParamWindowCoords());
-    ctx.params = InterfaceGl::create(paramsWindow, "Debug Params", vec2(470, 270));
-    ctx.params->addText("FPS", "label='FPS should display here'");
-    ctx.params->addSeparator();
-    paramsWindowIsAvailable = true;
-    if (!ctx.config.doShowParams()) paramsWindow->hide();
-    paramsWindow->getSignalClose().connect([&] {
-        paramsWindowIsAvailable = false;
-    });
 }
 
 void MagicWindowApp::draw() {
