@@ -56,7 +56,7 @@ namespace magicwindow {
                     }
                 }
 
-                if (child.getNodeType() == JsonTree::NodeType::NODE_NULL) {
+                if (child.getNodeType() == cinder::JsonTree::NodeType::NODE_NULL) {
                     return defaultValue;
                 }
 
