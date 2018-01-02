@@ -1,2 +1,2 @@
 # magic-window
-Application framework for Cinder
+Boilerplate for multi-display Cinder applications.
