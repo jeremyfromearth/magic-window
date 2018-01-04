@@ -2,18 +2,80 @@
 
 // cinder
 #include "cinder/app/App.h"
+#include "cinder/app/FileDropEvent.h"
+#include "cinder/Color.h"
 #include "cinder/Display.h"
+#include "cinder/Function.h"
+#include "cinder/app/KeyEvent.h"
+#include "cinder/app/MouseEvent.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Json.h"
 #include "cinder/Log.h"
 #include "cinder/params/Params.h"
-
-// magicwindow
-#include "MagicWindow/cfg.h"
-#include "MagicWindow/utils.h"
-#include "MagicWindow/signals.h"
+#include "cinder/Rect.h"
 
 namespace magicwindow {
+  ///////////////////////////////////////////////////////////////
+  //
+  // config
+  //
+  ///////////////////////////////////////////////////////////////
+  class config {
+    
+  public:
+    ///////////////////////////////////////////////////////////////
+    // statics
+    ///////////////////////////////////////////////////////////////
+    static const std::string DISPLAY_CUSTOM;
+    static const std::string DISPLAY_GRID;
+    static const std::string DISPLAY_SPAN;
+    
+      ///////////////////////////////////////////////////////////////
+      // methods
+      ///////////////////////////////////////////////////////////////
+    void initialize(ci::JsonTree cfgData);
+    
+      ///////////////////////////////////////////////////////////////
+      // properties
+      ///////////////////////////////////////////////////////////////
+    ci::JsonTree magic;
+    ci::JsonTree windows;
+    
+    bool bezels;
+    bool cursor;
+    std::string display;
+    bool fullscreen;
+    bool keys;
+    bool params;
+    float scale;
+  };
+  
+  ///////////////////////////////////////////////////////////////
+  //
+  // signals
+  //
+  ///////////////////////////////////////////////////////////////
+  class signals {
+  public:
+      ///////////////////////////////////////////////////////////////
+      // Properties
+      ///////////////////////////////////////////////////////////////
+    ci::signals::Signal<void()> update;
+    ci::signals::Signal<void()> draw;
+    ci::signals::Signal<void()> post_transform_draw;
+    ci::signals::Signal<void()> pre_transform_draw;
+    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_down;
+    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_drag;
+    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_move;
+    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_up;
+    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_wheel;
+    ci::signals::Signal<void(ci::app::KeyEvent event)> key_down;
+    ci::signals::Signal<void(ci::app::KeyEvent event)> key_up;
+    ci::signals::Signal<void(ci::app::FileDropEvent e)> file_drop;
+    ci::signals::Signal<void()> cleanup;
+    ci::signals::Signal<void()> shutdown;
+  };
+  
   ///////////////////////////////////////////////////////////////
   //
   // context
@@ -24,7 +86,7 @@ namespace magicwindow {
     ///////////////////////////////////////////////////////////////
     // Properties
     ///////////////////////////////////////////////////////////////
-    cfg config;
+    config cfg;
     signals signals;
     ci::params::InterfaceGlRef params;
   };
