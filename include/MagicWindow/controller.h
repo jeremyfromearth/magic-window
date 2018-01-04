@@ -1,6 +1,5 @@
 #pragma once
-
-#include "MagicWindow/context.h"
+#include "MagicWindow/app.h"
 
 namespace magicwindow {
   class controller {

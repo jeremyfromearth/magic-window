@@ -1,19 +1,40 @@
 #pragma once
 
 // cinder
+#include "cinder/app/App.h"
 #include "cinder/Display.h"
+#include "cinder/gl/gl.h"
 #include "cinder/Json.h"
 #include "cinder/Log.h"
-#include "cinder/app/App.h"
-#include "cinder/gl/gl.h"
+#include "cinder/params/Params.h"
 
-// hexa
-#include "MagicWindow/context.h"
+// magicwindow
+#include "MagicWindow/cfg.h"
 #include "MagicWindow/utils.h"
-#include "MagicWindow/window_config.h"
+#include "MagicWindow/signals.h"
 
 namespace magicwindow {
-  class magic_window_app : public ci::app::App{
+  ///////////////////////////////////////////////////////////////
+  //
+  // context
+  //
+  ///////////////////////////////////////////////////////////////
+  class context {
+  public:
+    ///////////////////////////////////////////////////////////////
+    // Properties
+    ///////////////////////////////////////////////////////////////
+    cfg config;
+    signals signals;
+    ci::params::InterfaceGlRef params;
+  };
+  
+  ///////////////////////////////////////////////////////////////
+  //
+  // app
+  //
+  ///////////////////////////////////////////////////////////////
+  class app : public ci::app::App{
   public:
     ///////////////////////////////////////////////////////////////
     // Methods
@@ -35,7 +56,7 @@ namespace magicwindow {
     /**
      * Create windows based on config variables. This method must be called by a sub-classing application.
      */
-    void initialize_window_configuration();
+    void magic();
     
     /**
      * The main update call

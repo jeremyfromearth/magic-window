@@ -5,12 +5,13 @@
 
 // cinder
 #include "cinder/Color.h"
-#include "cinder/Json.h"
 #include "cinder/gl/gl.h"
+#include "cinder/Json.h"
+#include "cinder/Rect.h"
 
 namespace magicwindow {
-  class config {
-    
+  class cfg {
+  
   public:
     ///////////////////////////////////////////////////////////////
     // Getters
@@ -33,7 +34,7 @@ namespace magicwindow {
     void set_cursor_visibility(bool v) { cursor = v; }
     void initialize(ci::JsonTree cfgData);
     
-  private:
+  public:
     ///////////////////////////////////////////////////////////////
     // Properties
     ///////////////////////////////////////////////////////////////
@@ -48,6 +49,31 @@ namespace magicwindow {
     bool fullscreen;
     ci::JsonTree windows;
     std::string window_mode;
+    
+    class window {
+    public:
+      static const std::string DISPLAY_CUSTOM;
+      static const std::string DISPLAY_GRID;
+      static const std::string DISPLAY_SPAN;
+      
+    public:
+      window(
+        int window_id,
+        ci::Rectf window_bounds,
+        ci::vec2 origin_translation) :
+      id(window_id),
+      bounds(window_bounds),
+      translation(origin_translation) {}
+      
+      int getId() { return id; }
+      ci::Rectf get_bounds() { return bounds; }
+      ci::vec2 get_translation() { return translation; }
+      
+    private:
+      ci::Rectf bounds;
+      int id;
+      ci::vec2 translation;
+    };
   };
 }
 

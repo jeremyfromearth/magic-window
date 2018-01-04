@@ -11,29 +11,37 @@ using namespace magicwindow;
 // json
 ////////////////////////////////////////////////////////////////////////////
 
-Color json::get_color(const ci::JsonTree & data) {
-  return Color(data.getChild("r").getValue<float>(),
-               data.getChild("g").getValue<float>(),
-               data.getChild("b").getValue<float>());
+Color json::rgb(const ci::JsonTree & data) {
+  return Color(
+    data.getChild("r").getValue<float>(),
+    data.getChild("g").getValue<float>(),
+    data.getChild("b").getValue<float>()
+  );
 }
 
-ColorA json::get_color_a(const ci::JsonTree & data) {
-  return ColorA(data.getChild("r").getValue<float>(),
-                data.getChild("g").getValue<float>(),
-                data.getChild("b").getValue<float>(),
-                data.getChild("a").getValue<float>());
+ColorA json::rgba(const ci::JsonTree & data) {
+  return ColorA(
+    data.getChild("r").getValue<float>(),
+    data.getChild("g").getValue<float>(),
+    data.getChild("b").getValue<float>(),
+    data.getChild("a").getValue<float>()
+  );
 }
 
-vec2 json::get_vec2(const JsonTree & data, string x, string y) {
-  return vec2(data.getChild(x).getValue<float>(),
-              data.getChild(y).getValue<float>());
+ci::vec2 json::vec2(const JsonTree & data, string x, string y) {
+  return ci::vec2(
+    data.getChild(x).getValue<float>(),
+    data.getChild(y).getValue<float>()
+  );
 }
 
 
-vec3 json::get_vec3(const JsonTree & data, string x, string y, string z) {
-  return vec3(data.getChild(x).getValue<float>(),
-              data.getChild(y).getValue<float>(), 
-              data.getChild(z).getValue<float>());
+ci::vec3 json::vec3(const JsonTree & data, string x, string y, string z) {
+  return ci::vec3(
+    data.getChild(x).getValue<float>(),
+    data.getChild(y).getValue<float>(),
+    data.getChild(z).getValue<float>()
+  );
 }
 
 

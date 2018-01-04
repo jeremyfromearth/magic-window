@@ -76,13 +76,13 @@ namespace magicwindow {
      * Returns an RGB color
      * Supplied data should be formatted as such: {r: 1.0, g: 1.0, b: 1.0}
      */
-    static ci::Color get_color(const ci::JsonTree & data);
+    static ci::Color rgb(const ci::JsonTree & data);
     
     /**
      * Returns an RGBA color
      * Supplide data should be formatted as such: {r: 1.0, g: 1.0, b: 1.0, a: 1.0}
      */
-    static ci::ColorA get_color_a(const ci::JsonTree & data);
+    static ci::ColorA rgba(const ci::JsonTree & data);
     
     /**
      * Takes a JsonTree containing x, y coordinate data and returns a Vec2f
@@ -90,7 +90,7 @@ namespace magicwindow {
      * @param x - The key for the x value (defaults to x)
      * @param y - The key for the y value (defaults to y)
      */
-    static ci::vec2 get_vec2(const ci::JsonTree & data, std::string x = "x", std::string y = "y");
+    static ci::vec2 vec2(const ci::JsonTree & data, std::string x = "x", std::string y = "y");
     
     /**
      * Takes a JsonTree containing x, y, z coordinate data and returns a Vec3f
@@ -99,7 +99,7 @@ namespace magicwindow {
      * @param y - The key for the y value (defaults to y)
      * @param z - The key for the z value (defaults to z)
      */
-    static ci::vec3 get_vec3(const ci::JsonTree & data, std::string x = "x", std::string y = "y", std::string z = "z");
+    static ci::vec3 vec3(const ci::JsonTree & data, std::string x = "x", std::string y = "y", std::string z = "z");
     
     /**
      * Merges json multiple trees into one tree

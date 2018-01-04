@@ -6,9 +6,6 @@
 #include "cinder/app/MouseEvent.h"
 #include "cinder/app/FileDropEvent.h"
 
-// atlas
-#include "MagicWindow/window_config.h"
-
 namespace magicwindow {
   class signals {
   public:
