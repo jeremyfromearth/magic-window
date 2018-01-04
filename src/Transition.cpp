@@ -4,7 +4,7 @@ using namespace magicwindow;
 
 Transition::Transition(StateRef fromState, StateRef toState, double duration, bool interupt) :
 from(fromState), to(toState), interuptable(interupt) {
-    timer.setDuration(duration);
+  timer.setDuration(duration);
 }
 
 float Transition::getDuration() { return timer.getDuration(); }
@@ -22,9 +22,9 @@ bool Transition::isComplete() { return timer.isComplete(); }
 bool Transition::isInteruptable() { return interuptable; }
 
 void Transition::setIsInteruptable(bool interupt) {
-    interuptable = interupt;
+  interuptable = interupt;
 }
 
 void Transition::reset() {
-    timer.reset();
+  timer.reset();
 }

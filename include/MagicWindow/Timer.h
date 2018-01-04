@@ -3,49 +3,49 @@
 #include "cinder/app/App.h"
 
 namespace magicwindow {
-    class Timer {
-    public:
-        ///////////////////////////////////////////////////////////////
-        // Constructor
-        ///////////////////////////////////////////////////////////////
-		Timer();
+  class Timer {
+  public:
+    ///////////////////////////////////////////////////////////////
+    // Constructor
+    ///////////////////////////////////////////////////////////////
+    Timer();
     
-        ///////////////////////////////////////////////////////////////
-        // Getter / Setter
-        ///////////////////////////////////////////////////////////////
-        /**
-         * Get and set the duration of the stopwatch
-         */
-		float getDuration();
-		void setDuration(float d);
-
-        /**
-         * Set the duration of the stop watch and reset it
-         */
-		void setDuration(float d, bool autoReset);
+    ///////////////////////////////////////////////////////////////
+    // Getter / Setter
+    ///////////////////////////////////////////////////////////////
+    /**
+     * Get and set the duration of the stopwatch
+     */
+    float getDuration();
+    void setDuration(float d);
     
-        /**
-         * Returns a float indicating what percent the stopwatch is complete
-         */
-		float getPercentComplete();
+    /**
+     * Set the duration of the stop watch and reset it
+     */
+    void setDuration(float d, bool autoReset);
     
-        /**
-         * Returns a float indicating the elapsed seconds since the stopwatch was last reset
-         */
-		float getElapsedSeconds();
-
-        /**
-         * Returns a boolean indicating whether or not the stopwatch is complete
-         */
-		bool isComplete();
+    /**
+     * Returns a float indicating what percent the stopwatch is complete
+     */
+    float getPercentComplete();
     
-        /**
-         * Resets the stopwatch
-         */
-		void reset();
+    /**
+     * Returns a float indicating the elapsed seconds since the stopwatch was last reset
+     */
+    float getElapsedSeconds();
     
-    private:
-        float start;
-        float duration;
-    };
+    /**
+     * Returns a boolean indicating whether or not the stopwatch is complete
+     */
+    bool isComplete();
+    
+    /**
+     * Resets the stopwatch
+     */
+    void reset();
+    
+  private:
+    float start;
+    float duration;
+  };
 }
