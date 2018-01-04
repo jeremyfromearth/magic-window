@@ -6,17 +6,22 @@ using namespace ci;
 using namespace magicwindow;
 
 void Config::initialize(JsonTree config) {
-    appNode = config.getChild("app");
-    appScale = json::get<float>(config, "app/scale", 1.0f);
-    defaultKeyHandlersEnabled = json::get<bool>(config, "app/default_keys", true);
-    if (config.hasChild("extras")) extras = config.getChild("extras");
-    fullscreen = json::get<bool>(config, "app/fullscreen", true);
-    paramsWindowCoords = vec2(
-        json::get<int>(config, "app/params_coords/x", 0),
-        json::get<int>(config, "app/params_coords/y", 0)
+    magic_window = config.getChild("magic_window");
+    app_scale = json::get<float>(magic_window, "scale", 1.0f);
+    bezels = json::get<bool>(magic_window, "bezels", false);
+    cursor = json::get<bool>(magic_window, "cursor", true);
+    default_keys = json::get<bool>(magic_window, "default_keys", true);
+    fullscreen = json::get<bool>(magic_window, "fullscreen", true);
+    params = json::get<bool>(magic_window, "params", false);
+    param_coords = vec2(
+        json::get<int>(magic_window, "params/coords/x", 0),
+        json::get<int>(magic_window, "params/coords/y", 0)
     );
-    showCursor = json::get<bool>(config, "app/cursor", true);
-    showParams = json::get<bool>(config, "app/params", false);
-    windowConfig = appNode.getChild("windows");
-    windowMode = json::get<std::string>(config, "app/window_mode", WindowConfig::DISPLAY_SPAN);
+    
+    windows = magic_window.getChild("windows");
+    window_mode = json::get<std::string>(magic_window, "window_mode", WindowConfig::DISPLAY_SPAN);
+    
+    
+    if (config.hasChild("app")) app = config.getChild("app");
+    
 }
