@@ -2,12 +2,12 @@
 #include "cinder/app/RendererGl.h"
 
 // magicwindow
-#include "MagicWindow/MagicWindowApp.h"
+#include "magicwindow.h"
 
 using namespace ci::app;
 using namespace magicwindow;
 
-class MagicWindowBasicApp : public MagicWindowApp {
+class MagicWindowBasicApp : public magicwindow::app {
 public:
     void setup();
 };
