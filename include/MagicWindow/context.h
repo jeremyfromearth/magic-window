@@ -3,19 +3,17 @@
 #include "cinder/params/Params.h"
 
 // hexa
-#include "MagicWindow/Config.h"
-#include "MagicWindow/StateMachine.h"
-#include "MagicWindow/Signals.h"
+#include "MagicWindow/config.h"
+#include "MagicWindow/signals.h"
 
 namespace magicwindow {
-  class Context {
+  class context {
   public:
     ///////////////////////////////////////////////////////////////
     // Properties
     ///////////////////////////////////////////////////////////////
-    Config config;
-    Signals signals;
-    StateMachine state;
+    config config;
+    signals signals;
     ci::params::InterfaceGlRef params;
   };
 }

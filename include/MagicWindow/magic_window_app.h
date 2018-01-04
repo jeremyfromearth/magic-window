@@ -8,12 +8,12 @@
 #include "cinder/gl/gl.h"
 
 // hexa
-#include "MagicWindow/Context.h"
-#include "MagicWindow/Utils.h"
-#include "MagicWindow/WindowConfig.h"
+#include "MagicWindow/context.h"
+#include "MagicWindow/utils.h"
+#include "MagicWindow/window_config.h"
 
 namespace magicwindow {
-  class MagicWindowApp : public ci::app::App{
+  class magic_window_app : public ci::app::App{
   public:
     ///////////////////////////////////////////////////////////////
     // Methods
@@ -24,7 +24,7 @@ namespace magicwindow {
      *
      * returns bool indicating that initialization was successful
      */
-    bool initialize(std::string configFilename = "cfg.json");
+    bool initialize(std::string config_filename = "cfg.json");
     
     /**
      * Initializes the application, config and windows
@@ -35,7 +35,7 @@ namespace magicwindow {
     /**
      * Create windows based on config variables. This method must be called by a sub-classing application.
      */
-    void initializeWindowConfiguration();
+    void initialize_window_configuration();
     
     /**
      * The main update call
@@ -64,8 +64,8 @@ namespace magicwindow {
     ///////////////////////////////////////////////////////////////
     // Properties
     ///////////////////////////////////////////////////////////////
-    Context ctx;
-    bool paramsWindowIsAvailable;
-    ci::app::WindowRef paramsWindow;
+    context ctx;
+    ci::app::WindowRef params_window;
+    bool params_window_is_available;
   };
 }

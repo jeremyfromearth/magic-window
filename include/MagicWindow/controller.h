@@ -1,20 +1,20 @@
 #pragma once
 
-#include "MagicWindow/Context.h"
+#include "MagicWindow/context.h"
 
 namespace magicwindow {
-  class Controller {
+  class controller {
   public:
     
-    Controller(Context & context);
+    controller(context & context);
     
   protected:
     ///////////////////////////////////////////////////////////////
     // Properties
     ///////////////////////////////////////////////////////////////
-    Context & ctx;
-    ci::signals::Connection drawConnection;
-    ci::signals::Connection updateConnection;
+    context & ctx;
+    ci::signals::Connection draw_connection;
+    ci::signals::Connection update_connection;
     
     ///////////////////////////////////////////////////////////////
     // Methods
@@ -23,32 +23,32 @@ namespace magicwindow {
     /**
      * Connects the draw signal of the applicaiton frame loop
      */
-    void connectDrawSignal();
+    void connect_draw_signal();
     
     /**
      * Connects the update and draw signals of the applicaiton frame loop
      */
-    void connectFrameSignals();
+    void connect_frame_signals();
     
     /**
      * Connects the update signal of the applicaiton frame loop
      */
-    void connectUpdateSignal();
+    void connect_update_signal();
     
     /**
      * Disconnects the draw signal of the applicaiton frame loop
      */
-    void disconnectDrawSignal();
+    void disconnect_draw_signal();
     
     /**
      * Disconnects both the update and draw signals of the application frame loop
      */
-    void disconnectFrameSignals();
+    void disconnect_frame_signals();
     
     /**
      * Disconnects the update signal of the applicaiton frame loop
      */
-    void disconnectUpdateSignal();
+    void disconnect_update_signal();
     
     /**
      * Called from the handler for the draw signal

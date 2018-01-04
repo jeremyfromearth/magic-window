@@ -9,7 +9,7 @@
 #include "cinder/gl/gl.h"
 
 namespace magicwindow {
-  class Config {
+  class config {
     
   public:
     ///////////////////////////////////////////////////////////////

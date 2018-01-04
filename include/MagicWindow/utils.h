@@ -16,10 +16,10 @@
 namespace magicwindow {
   class env {
   public:
-    static std::string get(std::string key, std::string defaultValue) {
+    static std::string get(std::string key, std::string default_value) {
       auto val = std::getenv(key.c_str());
       if (val == NULL) {
-        return defaultValue;
+        return default_value;
       }
       else {
         return std::string(val);
@@ -40,7 +40,7 @@ namespace magicwindow {
      * @return a value of type T from a JsonTree
      */
     template <typename T>
-    static T get(const ci::JsonTree & tree, const std::string & path, T defaultValue, std::string separators = "/.:|") {
+    static T get(const ci::JsonTree & tree, const std::string & path, T default_value, std::string separators = "/.:|") {
       std::vector<std::string> parts;
       boost::split(parts, path, boost::is_any_of(separators));
       if (parts.size() && tree.hasChild(parts[0])) {
@@ -52,12 +52,12 @@ namespace magicwindow {
             child = c;
             i++;
           } else {
-            return defaultValue;
+            return default_value;
           }
         }
         
         if (child.getNodeType() == cinder::JsonTree::NodeType::NODE_NULL) {
-          return defaultValue;
+          return default_value;
         }
         
         try {
@@ -65,24 +65,24 @@ namespace magicwindow {
         }
         catch(std::exception exc) {
           CI_LOG_EXCEPTION("Type conversion was not possible for: " + path + ". Returning supplied default value.", exc);
-          return defaultValue;
+          return default_value;
         }
         
       }
-      return defaultValue;
+      return default_value;
     }
     
     /**
      * Returns an RGB color
      * Supplied data should be formatted as such: {r: 1.0, g: 1.0, b: 1.0}
      */
-    static ci::Color getColor(const ci::JsonTree & data);
+    static ci::Color get_color(const ci::JsonTree & data);
     
     /**
      * Returns an RGBA color
      * Supplide data should be formatted as such: {r: 1.0, g: 1.0, b: 1.0, a: 1.0}
      */
-    static ci::ColorA getColorA(const ci::JsonTree & data);
+    static ci::ColorA get_color_a(const ci::JsonTree & data);
     
     /**
      * Takes a JsonTree containing x, y coordinate data and returns a Vec2f
@@ -90,7 +90,7 @@ namespace magicwindow {
      * @param x - The key for the x value (defaults to x)
      * @param y - The key for the y value (defaults to y)
      */
-    static ci::vec2 getVec2(const ci::JsonTree & data, std::string x = "x", std::string y = "y");
+    static ci::vec2 get_vec2(const ci::JsonTree & data, std::string x = "x", std::string y = "y");
     
     /**
      * Takes a JsonTree containing x, y, z coordinate data and returns a Vec3f
@@ -99,14 +99,14 @@ namespace magicwindow {
      * @param y - The key for the y value (defaults to y)
      * @param z - The key for the z value (defaults to z)
      */
-    static ci::vec3 getVec3(const ci::JsonTree & data, std::string x = "x", std::string y = "y", std::string z = "z");
+    static ci::vec3 get_vec3(const ci::JsonTree & data, std::string x = "x", std::string y = "y", std::string z = "z");
     
     /**
      * Merges json multiple trees into one tree
      * @param trees - A vector of JsonTree objects to be merged
      * @return A single JsonTree consisting of the supplied trees
      */
-    static ci::JsonTree mergeTrees(std::vector<ci::JsonTree> & trees);
+    static ci::JsonTree merge_trees(std::vector<ci::JsonTree> & trees);
   };
   
   class loader {

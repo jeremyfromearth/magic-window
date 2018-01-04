@@ -1,11 +1,11 @@
-#include "MagicWindow/Config.h"
-#include "MagicWindow/Utils.h"
-#include "MagicWindow/WindowConfig.h"
+#include "MagicWindow/config.h"
+#include "MagicWindow/utils.h"
+#include "MagicWindow/window_config.h"
 
 using namespace ci;
 using namespace magicwindow;
 
-void Config::initialize(JsonTree config) {
+void config::initialize(JsonTree config) {
   magic_window = config.getChild("magic_window");
   app_scale = json::get<float>(magic_window, "scale", 1.0f);
   bezels = json::get<bool>(magic_window, "bezels", false);
@@ -19,7 +19,7 @@ void Config::initialize(JsonTree config) {
                       );
   
   windows = magic_window.getChild("windows");
-  window_mode = json::get<std::string>(magic_window, "window_mode", WindowConfig::DISPLAY_SPAN);
+  window_mode = json::get<std::string>(magic_window, "window_mode", window_config::DISPLAY_SPAN);
   
   
   if (config.hasChild("app")) app = config.getChild("app");
