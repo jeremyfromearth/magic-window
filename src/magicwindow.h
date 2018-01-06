@@ -64,6 +64,7 @@ namespace magicwindow {
     ci::signals::Signal<void()> draw;
     ci::signals::Signal<void()> post_transform_draw;
     ci::signals::Signal<void()> pre_transform_draw;
+    ci::signals::Signal<void()> main_update;
     ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_down;
     ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_drag;
     ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_move;
@@ -149,6 +150,6 @@ namespace magicwindow {
     ///////////////////////////////////////////////////////////////
     context ctx;
     ci::app::WindowRef params_window;
-    bool params_window_is_available;
+    ci::app::WindowRef main_window;
   };
 }

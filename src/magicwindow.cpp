@@ -30,9 +30,9 @@ void magicwindow::app::draw() {
   gl::setMatricesWindow(getWindowSize());
   float inverse_scale = 1.0 / ctx.cfg.scale;
   
-  if (window == params_window) {
+  if (params_window) {
     gl::clear();
-    ctx.params->draw();
+    //ctx.params->draw();
   }
   else {
     Rectf scaled_bounds = Rectf(window->getBounds());
@@ -56,10 +56,6 @@ void magicwindow::app::draw() {
       gl::pushMatrices();
       gl::drawStrokedRect(bounds);
       gl::popMatrices();
-    }
-    else {
-      gl::clear();
-      ctx.signals.draw.emit();
     }
   }
 }
@@ -112,7 +108,7 @@ void magicwindow::app::keyDown(KeyEvent e) {
         }
         break;
       case KeyEvent::KEY_p:
-        if (params_window_is_available) {
+        if (params_window) {
           params_window->isHidden() ? params_window->show() : params_window->hide();
         }
         break;
@@ -130,24 +126,25 @@ void magicwindow::app::magic() {
   float app_scale = ctx.cfg.scale;
   JsonTree & window_cfg = ctx.cfg.windows;
   
-  params_window = getWindow();
-  params_window->setSize(500, 300);
-  
-  ctx.params = InterfaceGl::create(params_window, "Debug Params", vec2(470, 270));
-  ctx.params->addText("FPS", "label='FPS should display here'");
-  ctx.params->addSeparator();
-  params_window_is_available = true;
-  if (!ctx.cfg.params) params_window->hide();
-  params_window->getSignalClose().connect([&] {
-    params_window_is_available = false;
-  });
+  if(!main_window) {
+    main_window = getWindow();
+    main_window->getSignalPostDraw().connect([&] {
+      ctx.signals.main_update.emit();
+    });
+  }
   
   // A window for each display with width and height matching the display
   if (ctx.cfg.display == config::DISPLAY_SPAN) {
+    
     std::vector<DisplayRef> displays = Display::getDisplays();
     for (int i = 0; i < displays.size(); i++) {
       Rectf bounds = displays[i]->getBounds();
-      WindowRef window = createWindow();
+      WindowRef window;
+      if(i == 0) {
+        window = main_window;
+      } else {
+        window = createWindow();
+      }
       window->setPos(bounds.getUpperLeft());
       window->setSize(bounds.getSize());
       window->setBorderless();
@@ -155,12 +152,10 @@ void magicwindow::app::magic() {
     }
   }
   
-  
   // As many windows as defined in the window_config variable
   if (ctx.cfg.display == config::DISPLAY_CUSTOM) {
+    
     for (JsonTree::Iter windowIt = window_cfg.begin(); windowIt != window_cfg.end(); windowIt++) {
-      double index = std::distance(window_cfg.begin(), windowIt);
-      
       int x = windowIt->getChild("x").getValue<int>();
       int y = windowIt->getChild("y").getValue<int>();
       int w = windowIt->getChild("w").getValue<int>();
@@ -170,7 +165,12 @@ void magicwindow::app::magic() {
       int ws = w * app_scale;
       int hs = h * app_scale;
       
-      WindowRef window = createWindow();
+      WindowRef window;
+      if(windowIt == window_cfg.begin()) {
+        window = main_window;
+      } else {
+        window = createWindow();
+      }
       
       window->setBorderless();
       window->setPos(xs, ys);
@@ -180,6 +180,7 @@ void magicwindow::app::magic() {
   }
   
   if (ctx.cfg.display == config::DISPLAY_GRID) {
+    
     float rows = window_cfg.hasChild("rows") ? window_cfg.getChild("rows").getValue<float>() : 1;
     float cols = window_cfg.hasChild("columns") ? window_cfg.getChild("columns").getValue<float>() : 1;
     float w = window_cfg.hasChild("screen_width") ? window_cfg.getChild("screen_width").getValue<float>() : 960;
@@ -193,29 +194,32 @@ void magicwindow::app::magic() {
         // Calculate the coordinates of each window
         int x = c * w;
         int y = r * h;
-        int xs = x * ctx.cfg.scale;
-        int ys = y * ctx.cfg.scale;
-
+        x *= ctx.cfg.scale;
+        y *= ctx.cfg.scale;
 
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
-        if(!ctx.cfg.fullscreen) {
-          y += 22;
-          ys += 22;
-        }
+        if(!ctx.cfg.fullscreen && r != 0) y += 22;
 #endif
 
-        WindowRef window = createWindow();
+        WindowRef window = r == 0 && c == 0 ? main_window : createWindow();
         window->setBorderless();
         window->setSize(ws, hs);
-        window->setPos(xs, ys);
+        window->setPos(x, y);
         if(ctx.cfg.fullscreen) window->setFullScreen();
         index++;
       }
     }
   }
   
+  /*
+  params_window = createWindow();
+  params_window->setSize(500, 300);
   params_window->setAlwaysOnTop();
+  ctx.params = InterfaceGl::create(params_window, "Debug Params", vec2(470, 270));
+  ctx.params->addText("FPS", "label='FPS should display here'");
+  ctx.params->addSeparator();
+  */
 }
 
   // TODO Wrap these mouse events in a magicwindow mouse event that translates the event coordinates to the appropriate window
