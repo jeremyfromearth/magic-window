@@ -2,7 +2,6 @@
 
 using namespace ci;
 using namespace ci::app;
-using namespace ci::params;
 using namespace magicwindow;
 
 const std::string config::DISPLAY_SPAN = "span";
@@ -15,7 +14,6 @@ void config::initialize(JsonTree cfg) {
   display = cfg.hasChild("display") ? cfg.getChild("display").getValue<std::string>() : config::DISPLAY_SPAN;
   fullscreen = cfg.hasChild("fullscreen") ? cfg.getChild("fullscreen").getValue<bool>() : true;
   keys = cfg.hasChild("keys") ? cfg.getChild("keys").getValue<bool>() : true;
-  params = cfg.hasChild("params") ? cfg.getChild("params").getValue<bool>() : true;
   scale = cfg.hasChild("scale") ? cfg.getChild("scale").getValue<float>() : 1.0;
   windows = cfg.getChild("windows");
 }
@@ -29,34 +27,27 @@ void magicwindow::app::draw() {
   WindowRef window = getWindow();
   gl::setMatricesWindow(getWindowSize());
   float inverse_scale = 1.0 / ctx.cfg.scale;
+  Rectf scaled_bounds = Rectf(window->getBounds());
+  scaled_bounds.scale(inverse_scale);
   
-  if (params_window) {
-    gl::clear();
-    //ctx.params->draw();
-  }
-  else {
-    Rectf scaled_bounds = Rectf(window->getBounds());
-    scaled_bounds.scale(inverse_scale);
-    
-    vec2 scaled_pos = window->getPos();
-    scaled_pos *= inverse_scale;
-    
-    gl::clear();
-    ctx.signals.pre_transform_draw.emit();
+  vec2 scaled_pos = window->getPos();
+  scaled_pos *= inverse_scale;
+  
+  gl::clear();
+  ctx.signals.pre_transform_draw.emit();
+  gl::pushMatrices();
+  gl::scale(ctx.cfg.scale, ctx.cfg.scale);
+  gl::translate(-scaled_pos);
+  ctx.signals.draw.emit();
+  gl::popMatrices();
+  ctx.signals.post_transform_draw.emit();
+  if(ctx.cfg.bezels) {
+    Rectf wb = window->getBounds();
+    Rectf bounds = Rectf(wb.getX1(), wb.getY1() + 1, wb.getX2() - 1, wb.getY2());
+    gl::color(1, 0, 0);
     gl::pushMatrices();
-    gl::scale(ctx.cfg.scale, ctx.cfg.scale);
-    gl::translate(-scaled_pos);
-    ctx.signals.draw.emit();
+    gl::drawStrokedRect(bounds);
     gl::popMatrices();
-    ctx.signals.post_transform_draw.emit();
-    if(ctx.cfg.bezels) {
-      Rectf wb = window->getBounds();
-      Rectf bounds = Rectf(wb.getX1(), wb.getY1() + 1, wb.getX2() - 1, wb.getY2());
-      gl::color(1, 0, 0);
-      gl::pushMatrices();
-      gl::drawStrokedRect(bounds);
-      gl::popMatrices();
-    }
   }
 }
 
@@ -105,11 +96,6 @@ void magicwindow::app::keyDown(KeyEvent e) {
         if (e.isControlDown()) {
           ctx.cfg.cursor = !ctx.cfg.cursor;
           ctx.cfg.cursor ? showCursor() : hideCursor();
-        }
-        break;
-      case KeyEvent::KEY_p:
-        if (params_window) {
-          params_window->isHidden() ? params_window->show() : params_window->hide();
         }
         break;
     }
@@ -211,15 +197,6 @@ void magicwindow::app::magic() {
       }
     }
   }
-  
-  /*
-  params_window = createWindow();
-  params_window->setSize(500, 300);
-  params_window->setAlwaysOnTop();
-  ctx.params = InterfaceGl::create(params_window, "Debug Params", vec2(470, 270));
-  ctx.params->addText("FPS", "label='FPS should display here'");
-  ctx.params->addSeparator();
-  */
 }
 
   // TODO Wrap these mouse events in a magicwindow mouse event that translates the event coordinates to the appropriate window
@@ -230,9 +207,5 @@ void magicwindow::app::mouseUp(MouseEvent e) { ctx.signals.mouse_up.emit(e); }
 void magicwindow::app::mouseWheel(MouseEvent e) { ctx.signals.mouse_wheel.emit(e); }
 
 void magicwindow::app::update() {
-  if (ctx.cfg.params && ctx.params) {
-    ctx.params->setOptions("FPS", "label='FPS: " + toString(getAverageFps()) + "'");
-  }
-  
   ctx.signals.update.emit();
 }

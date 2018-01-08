@@ -11,7 +11,6 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Json.h"
 #include "cinder/Log.h"
-#include "cinder/params/Params.h"
 #include "cinder/Rect.h"
 
 namespace magicwindow {
@@ -46,7 +45,6 @@ namespace magicwindow {
     std::string display;
     bool fullscreen;
     bool keys;
-    bool params;
     float scale;
   };
   
@@ -57,9 +55,9 @@ namespace magicwindow {
   ///////////////////////////////////////////////////////////////
   class signals {
   public:
-      ///////////////////////////////////////////////////////////////
-      // Properties
-      ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////
+    // Properties
+    ///////////////////////////////////////////////////////////////
     ci::signals::Signal<void()> update;
     ci::signals::Signal<void()> draw;
     ci::signals::Signal<void()> post_transform_draw;
@@ -89,7 +87,6 @@ namespace magicwindow {
     ///////////////////////////////////////////////////////////////
     config cfg;
     signals signals;
-    ci::params::InterfaceGlRef params;
   };
   
   ///////////////////////////////////////////////////////////////
@@ -149,7 +146,6 @@ namespace magicwindow {
     // Properties
     ///////////////////////////////////////////////////////////////
     context ctx;
-    ci::app::WindowRef params_window;
     ci::app::WindowRef main_window;
   };
 }
