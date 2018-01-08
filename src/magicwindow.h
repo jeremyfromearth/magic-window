@@ -1,4 +1,6 @@
 #pragma once
+// std
+#include <set>
 
 // cinder
 #include "cinder/app/App.h"
@@ -146,6 +148,7 @@ namespace magicwindow {
     // Properties
     ///////////////////////////////////////////////////////////////
     context ctx;
+    std::set<ci::app::WindowRef> windows;
     ci::app::WindowRef main_window;
   };
 }

@@ -25,6 +25,8 @@ void magicwindow::app::cleanup() {
 
 void magicwindow::app::draw() {
   WindowRef window = getWindow();
+  if(!windows.count(window)) return;
+  
   gl::setMatricesWindow(getWindowSize());
   float inverse_scale = 1.0 / ctx.cfg.scale;
   Rectf scaled_bounds = Rectf(window->getBounds());
@@ -125,15 +127,11 @@ void magicwindow::app::magic() {
     std::vector<DisplayRef> displays = Display::getDisplays();
     for (int i = 0; i < displays.size(); i++) {
       Rectf bounds = displays[i]->getBounds();
-      WindowRef window;
-      if(i == 0) {
-        window = main_window;
-      } else {
-        window = createWindow();
-      }
+      WindowRef window = i == 0 ? main_window : createWindow();
       window->setPos(bounds.getUpperLeft());
       window->setSize(bounds.getSize());
       window->setBorderless();
+      windows.emplace(window);
       if (ctx.cfg.fullscreen) window->setFullScreen();
     }
   }
@@ -151,16 +149,11 @@ void magicwindow::app::magic() {
       int ws = w * app_scale;
       int hs = h * app_scale;
       
-      WindowRef window;
-      if(windowIt == window_cfg.begin()) {
-        window = main_window;
-      } else {
-        window = createWindow();
-      }
-      
+      WindowRef window = windowIt == window_cfg.begin() ? main_window : createWindow();
       window->setBorderless();
       window->setPos(xs, ys);
       window->setSize(ws, hs);
+      windows.emplace(window);
       if (ctx.cfg.fullscreen) window->setFullScreen();
     }
   }
@@ -192,6 +185,7 @@ void magicwindow::app::magic() {
         window->setBorderless();
         window->setSize(ws, hs);
         window->setPos(x, y);
+        windows.emplace(window);
         if(ctx.cfg.fullscreen) window->setFullScreen();
         index++;
       }
