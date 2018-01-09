@@ -129,9 +129,9 @@ void magicwindow::app::magic() {
     for (int i = 0; i < displays.size(); i++) {
       Rectf bounds = displays[i]->getBounds();
       WindowRef window = i == 0 ? main_window : createWindow();
-      window->setPos(bounds.getUpperLeft());
       window->setSize(bounds.getSize());
       window->setBorderless();
+      window->setPos(bounds.getUpperLeft());
       windows.emplace(window);
       if (ctx.cfg.fullscreen) window->setFullScreen();
     }
@@ -151,9 +151,9 @@ void magicwindow::app::magic() {
       int hs = h * app_scale;
       
       WindowRef window = windowIt == window_cfg.begin() ? main_window : createWindow();
+      window->setSize(ws, hs);
       window->setBorderless();
       window->setPos(xs, ys);
-      window->setSize(ws, hs);
       windows.emplace(window);
       if (ctx.cfg.fullscreen) window->setFullScreen();
     }
@@ -168,7 +168,6 @@ void magicwindow::app::magic() {
     float ws = w * ctx.cfg.scale;
     float hs = h * ctx.cfg.scale;
     
-    int index = 0;
     for(int r = 0; r < rows; r++) {
       for(int c = 0; c < cols; c++) {
         // Calculate the coordinates of each window
@@ -179,16 +178,15 @@ void magicwindow::app::magic() {
 
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
+        // Because regardless of whether or not we set the window.y to 0, it will be bumbped down by the toolbar
         if(!ctx.cfg.fullscreen && r != 0) y += 22;
 #endif
-
         WindowRef window = r == 0 && c == 0 ? main_window : createWindow();
-        window->setBorderless();
         window->setSize(ws, hs);
+        window->setBorderless(true);
         window->setPos(x, y);
         windows.emplace(window);
         if(ctx.cfg.fullscreen) window->setFullScreen();
-        index++;
       }
     }
   }
