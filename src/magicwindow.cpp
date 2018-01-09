@@ -25,9 +25,11 @@ void magicwindow::app::cleanup() {
 
 void magicwindow::app::draw() {
   WindowRef window = getWindow();
-  if(!windows.count(window)) return;
+  if(!windows.count(window)) {
+    ctx.signals.draw.emit();
+    return;
+  }
   
-  gl::setMatricesWindow(getWindowSize());
   float inverse_scale = 1.0 / ctx.cfg.scale;
   Rectf scaled_bounds = Rectf(window->getBounds());
   scaled_bounds.scale(inverse_scale);
@@ -46,10 +48,9 @@ void magicwindow::app::draw() {
   if(ctx.cfg.bezels) {
     Rectf wb = window->getBounds();
     Rectf bounds = Rectf(wb.getX1(), wb.getY1() + 1, wb.getX2() - 1, wb.getY2());
-    gl::color(1, 0, 0);
-    gl::pushMatrices();
+    gl::ScopedColor color(0, 1, 1);
+    gl::ScopedMatrices m2;
     gl::drawStrokedRect(bounds);
-    gl::popMatrices();
   }
 }
 
