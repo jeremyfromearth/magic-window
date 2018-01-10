@@ -32,18 +32,17 @@ void magicwindow::app::draw() {
     return;
   }
   
-  float inverse_scale = 1.0 / ctx.cfg.scale;
-  Rectf scaled_bounds = Rectf(window->getBounds());
-  scaled_bounds.scale(inverse_scale);
-  
-  vec2 scaled_pos = window->getPos();
-  scaled_pos *= inverse_scale;
+  window_data data = *window->getUserData<window_data>();
   
   gl::clear();
   ctx.signals.pre_transform_draw.emit();
   gl::pushMatrices();
-  gl::scale(ctx.cfg.scale, ctx.cfg.scale);
-  gl::translate(-scaled_pos);
+  if(ctx.cfg.fullscreen) {
+    gl::translate(-data.x, -data.y);
+  } else {
+    gl::scale(ctx.cfg.scale, ctx.cfg.scale);
+    gl::translate(-vec2(data.x, data.y) * (1.0f / ctx.cfg.scale));
+  }
   ctx.signals.draw.emit();
   gl::popMatrices();
   ctx.signals.post_transform_draw.emit();
@@ -171,6 +170,7 @@ void magicwindow::app::magic() {
     float ws = w * ctx.cfg.scale;
     float hs = h * ctx.cfg.scale;
     
+    int id = 0;
     for(int r = 0; r < rows; r++) {
       for(int c = 0; c < cols; c++) {
         // Calculate the coordinates of each window
@@ -186,6 +186,7 @@ void magicwindow::app::magic() {
 #endif
         // Odering of the following is very important
         WindowRef window = r == 0 && c == 0 ? main_window : createWindow();
+        window->setUserData(new window_data(x, y, ws, hs, id));
         windows.emplace(window);
         if(ctx.cfg.top) window->setAlwaysOnTop();
         if(ctx.cfg.fullscreen) {
@@ -195,6 +196,8 @@ void magicwindow::app::magic() {
           window->setBorderless();
           window->setPos(x, y);
         }
+        
+        id++;
       }
     }
   }
