@@ -48,6 +48,7 @@ namespace magicwindow {
     bool fullscreen;
     bool keys;
     float scale;
+    bool top;
   };
   
   ///////////////////////////////////////////////////////////////

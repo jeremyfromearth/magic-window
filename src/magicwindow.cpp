@@ -15,6 +15,7 @@ void config::initialize(JsonTree cfg) {
   fullscreen = cfg.hasChild("fullscreen") ? cfg.getChild("fullscreen").getValue<bool>() : true;
   keys = cfg.hasChild("keys") ? cfg.getChild("keys").getValue<bool>() : true;
   scale = cfg.hasChild("scale") ? cfg.getChild("scale").getValue<float>() : 1.0;
+  top = cfg.hasChild("top") ? cfg.getChild("top").getValue<bool>() : false;
   windows = cfg.getChild("windows");
 }
 
@@ -25,6 +26,7 @@ void magicwindow::app::cleanup() {
 
 void magicwindow::app::draw() {
   WindowRef window = getWindow();
+  
   if(!windows.count(window)) {
     ctx.signals.draw.emit();
     return;
@@ -151,10 +153,11 @@ void magicwindow::app::magic() {
       int hs = h * app_scale;
       
       WindowRef window = windowIt == window_cfg.begin() ? main_window : createWindow();
+      windows.emplace(window);
       window->setSize(ws, hs);
       window->setBorderless();
       window->setPos(xs, ys);
-      windows.emplace(window);
+      if(ctx.cfg.top) window->setAlwaysOnTop();
       if (ctx.cfg.fullscreen) window->setFullScreen();
     }
   }
@@ -179,14 +182,19 @@ void magicwindow::app::magic() {
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
         // Because regardless of whether or not we set the window.y to 0, it will be bumbped down by the toolbar
-        if(!ctx.cfg.fullscreen && r != 0) y += 22;
+        if(!ctx.cfg.fullscreen && r != 0 && !ctx.cfg.top) y += 22;
 #endif
+        // Odering of the following is very important
         WindowRef window = r == 0 && c == 0 ? main_window : createWindow();
-        window->setSize(ws, hs);
-        window->setBorderless(true);
-        window->setPos(x, y);
         windows.emplace(window);
-        if(ctx.cfg.fullscreen) window->setFullScreen();
+        if(ctx.cfg.top) window->setAlwaysOnTop();
+        if(ctx.cfg.fullscreen) {
+          window->setFullScreen();
+        } else {
+          window->setSize(ws, hs);
+          window->setBorderless();
+          window->setPos(x, y);
+        }
       }
     }
   }
