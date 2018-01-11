@@ -27,11 +27,6 @@ void magicwindow::app::cleanup() {
 void magicwindow::app::draw() {
   WindowRef window = getWindow();
   
-  if(!windows.count(window)) {
-    ctx.signals.draw.emit();
-    return;
-  }
-  
   window_data * data = window->getUserData<window_data>();
   if(data) {
     gl::clear();
@@ -54,6 +49,8 @@ void magicwindow::app::draw() {
       gl::ScopedMatrices m2;
       gl::drawStrokedRect(bounds);
     }
+  } else {
+    ctx.signals.draw.emit();
   }
 }
 
@@ -120,8 +117,11 @@ void magicwindow::app::magic() {
   
   if(!main_window) {
     main_window = getWindow();
+    ctx.status.current_frame = 0;
     main_window->getSignalPostDraw().connect([&] {
       ctx.signals.main_update.emit();
+      ctx.status.current_frame++;
+      ctx.status.average_fps = getAverageFps();
     });
   }
   
@@ -140,8 +140,6 @@ void magicwindow::app::magic() {
         window->setBorderless();
         window->setPos(bounds.getUpperLeft() * ctx.cfg.scale);
       }
-      
-      windows.emplace(window);
     }
   }
   
@@ -167,8 +165,6 @@ void magicwindow::app::magic() {
         window->setBorderless();
         window->setPos(xs, ys);
       }
-      
-      windows.emplace(window);
     }
   }
   
@@ -195,7 +191,7 @@ void magicwindow::app::magic() {
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
         // Because regardless of whether or not we set the window.y to 0, it will be bumbped down by the toolbar
-        if(!ctx.cfg.fullscreen && r != 0 && !ctx.cfg.top) y += 22;
+        if(!ctx.cfg.fullscreen && !ctx.cfg.top) y += 22;
 #endif
         // Odering of the following is very important
         WindowRef window = r == 0 && c == 0 ? main_window : createWindow();
@@ -205,12 +201,10 @@ void magicwindow::app::magic() {
           window->setPos(x, y);
           window->setFullScreen();
         } else {
-          window->setSize(ws, hs);
           window->setBorderless();
+          window->setSize(ws, hs);
           window->setPos(x, y);
         }
-        
-        windows.emplace(window);
         id++;
       }
     }
