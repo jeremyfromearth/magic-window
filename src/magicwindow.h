@@ -133,11 +133,6 @@ namespace magicwindow {
     bool initialize(ci::JsonTree data);
     
     /**
-     * Create windows based on config variables. This method must be called by a sub-classing application.
-     */
-    void magic();
-    
-    /**
      * The main update call
      */
     void update() override;
@@ -161,6 +156,14 @@ namespace magicwindow {
     void cleanup() override;
     
   protected:
+    ///////////////////////////////////////////////////////////////
+    // Methods
+    ///////////////////////////////////////////////////////////////
+    /**
+     * Create windows based on config variables. This method must be called by a sub-classing application.
+     */
+    void magic();
+    
     ///////////////////////////////////////////////////////////////
     // Properties
     ///////////////////////////////////////////////////////////////

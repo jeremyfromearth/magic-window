@@ -32,26 +32,28 @@ void magicwindow::app::draw() {
     return;
   }
   
-  window_data data = *window->getUserData<window_data>();
-  
-  gl::clear();
-  ctx.signals.pre_transform_draw.emit();
-  gl::pushMatrices();
-  if(ctx.cfg.fullscreen) {
-    gl::translate(-data.x, -data.y);
-  } else {
-    gl::scale(ctx.cfg.scale, ctx.cfg.scale);
-    gl::translate(-vec2(data.x, data.y) * (1.0f / ctx.cfg.scale));
-  }
-  ctx.signals.draw.emit();
-  gl::popMatrices();
-  ctx.signals.post_transform_draw.emit();
-  if(ctx.cfg.bezels) {
-    Rectf wb = window->getBounds();
-    Rectf bounds = Rectf(wb.getX1(), wb.getY1() + 1, wb.getX2() - 1, wb.getY2());
-    gl::ScopedColor color(0, 1, 1);
-    gl::ScopedMatrices m2;
-    gl::drawStrokedRect(bounds);
+  window_data * data = window->getUserData<window_data>();
+  if(data) {
+    gl::clear();
+    ctx.signals.pre_transform_draw.emit();
+    gl::pushMatrices();
+    if(ctx.cfg.fullscreen) {
+      gl::translate(-data->x, -data->y);
+    } else {
+      gl::scale(ctx.cfg.scale, ctx.cfg.scale);
+      gl::translate(-vec2(data->x, data->y) * (1.0f / ctx.cfg.scale));
+    }
+    ctx.signals.draw.emit();
+    gl::popMatrices();
+    ctx.signals.post_transform_draw.emit();
+    
+    if(ctx.cfg.bezels) {
+      Rectf wb = window->getBounds();
+      Rectf bounds = Rectf(wb.getX1(), wb.getY1() + 1, wb.getX2() - 1, wb.getY2());
+      gl::ScopedColor color(0, 1, 1);
+      gl::ScopedMatrices m2;
+      gl::drawStrokedRect(bounds);
+    }
   }
 }
 
@@ -125,46 +127,57 @@ void magicwindow::app::magic() {
   
   // A window for each display with width and height matching the display
   if (ctx.cfg.display == config::DISPLAY_SPAN) {
-    
     std::vector<DisplayRef> displays = Display::getDisplays();
     for (int i = 0; i < displays.size(); i++) {
       Rectf bounds = displays[i]->getBounds();
       WindowRef window = i == 0 ? main_window : createWindow();
-      window->setSize(bounds.getSize());
-      window->setBorderless();
-      window->setPos(bounds.getUpperLeft());
+      if(ctx.cfg.top) window->setAlwaysOnTop();
+      if(ctx.cfg.fullscreen) {
+        window->setPos(bounds.getUpperLeft());
+        window->setFullScreen();
+      } else {
+        window->setSize(bounds.getSize() * ctx.cfg.scale);
+        window->setBorderless();
+        window->setPos(bounds.getUpperLeft() * ctx.cfg.scale);
+      }
+      
       windows.emplace(window);
-      if (ctx.cfg.fullscreen) window->setFullScreen();
     }
   }
   
   // As many windows as defined in the window_config variable
   if (ctx.cfg.display == config::DISPLAY_CUSTOM) {
-    
     for (JsonTree::Iter windowIt = window_cfg.begin(); windowIt != window_cfg.end(); windowIt++) {
       int x = windowIt->getChild("x").getValue<int>();
       int y = windowIt->getChild("y").getValue<int>();
       int w = windowIt->getChild("w").getValue<int>();
       int h = windowIt->getChild("h").getValue<int>();
-      int xs = x * app_scale;
-      int ys = y * app_scale;
-      int ws = w * app_scale;
-      int hs = h * app_scale;
       
       WindowRef window = windowIt == window_cfg.begin() ? main_window : createWindow();
-      windows.emplace(window);
-      window->setSize(ws, hs);
-      window->setBorderless();
-      window->setPos(xs, ys);
       if(ctx.cfg.top) window->setAlwaysOnTop();
-      if (ctx.cfg.fullscreen) window->setFullScreen();
+      if(ctx.cfg.fullscreen) {
+        window->setPos(x, y);
+        window->setFullScreen();
+      } else {
+        int xs = x * app_scale;
+        int ys = y * app_scale;
+        int ws = w * app_scale;
+        int hs = h * app_scale;
+        window->setSize(ws, hs);
+        window->setBorderless();
+        window->setPos(xs, ys);
+      }
+      
+      windows.emplace(window);
     }
   }
   
   if (ctx.cfg.display == config::DISPLAY_GRID) {
-    
     float rows = window_cfg.hasChild("rows") ? window_cfg.getChild("rows").getValue<float>() : 1;
     float cols = window_cfg.hasChild("columns") ? window_cfg.getChild("columns").getValue<float>() : 1;
+    
+    if(rows <= 0 || cols <= 0) throw std::runtime_error("Rows and columns must be greater than 1");
+    
     float w = window_cfg.hasChild("screen_width") ? window_cfg.getChild("screen_width").getValue<float>() : 960;
     float h = window_cfg.hasChild("screen_height") ? window_cfg.getChild("screen_height").getValue<float>() : 540;
     float ws = w * ctx.cfg.scale;
@@ -187,9 +200,9 @@ void magicwindow::app::magic() {
         // Odering of the following is very important
         WindowRef window = r == 0 && c == 0 ? main_window : createWindow();
         window->setUserData(new window_data(x, y, ws, hs, id));
-        windows.emplace(window);
         if(ctx.cfg.top) window->setAlwaysOnTop();
         if(ctx.cfg.fullscreen) {
+          window->setPos(x, y);
           window->setFullScreen();
         } else {
           window->setSize(ws, hs);
@@ -197,6 +210,7 @@ void magicwindow::app::magic() {
           window->setPos(x, y);
         }
         
+        windows.emplace(window);
         id++;
       }
     }
