@@ -49,6 +49,7 @@ namespace magicwindow {
     bool keys;
     float scale;
     bool top;
+    ci::JsonTree json;
   };
   
   ///////////////////////////////////////////////////////////////

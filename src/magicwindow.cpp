@@ -9,6 +9,7 @@ const std::string config::DISPLAY_CUSTOM = "custom";
 const std::string config::DISPLAY_GRID = "grid";
 
 void config::initialize(JsonTree cfg) {
+  json = cfg;
   bezels = cfg.hasChild("bezels") ? cfg.getChild("bezels").getValue<bool>() : false;
   cursor = cfg.hasChild("cursor") ? cfg.getChild("cursor").getValue<bool>() : true;
   display = cfg.hasChild("display") ? cfg.getChild("display").getValue<std::string>() : config::DISPLAY_SPAN;
