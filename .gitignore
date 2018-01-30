@@ -28,7 +28,7 @@
 
 # XCode
 build/
-Derived/Data/
+DerivedData/
 
 # OSX
 .DS_Store
@@ -40,3 +40,4 @@ Release/
 *.sdf
 *.user
 *.opensdf
+

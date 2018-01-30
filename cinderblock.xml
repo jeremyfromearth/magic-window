@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <cinder>
-    <block  
-      author="Jeremy Neal Brown"
-      id="com.jeremynealbrown.magicwindow"
-      git = "git@github.com:jeremynealbrown/magic-window.git"
+    <block
+      author="@jeremyfromearth"
+      id="com.jeremyfromearth.magicwindow"
+      git = "git@github.com:jeremyfromearth/magic-window.git"
       license="MIT"
       name="MagicWindow"
-      summary="A modular codebase for developing interactive projects with Cinder."
-      url="https://github.com/jeremynealbrown/magic-window"
-	  git="https://github.com/jeremynealbrown/magic-window.git">
-      <headerPattern>include/MagicWindow/*.h</headerPattern>
+      summary="Boilerplate for multi-display Cinder applications"
+      url="https://github.com/jeremyfromearth/magic-window"
+	    git="https://github.com/jeremyfromearth/magic-window.git">
+      <headerPattern>src/*.h</headerPattern>
       <sourcePattern>src/*.cpp</sourcePattern>
-      <includePath>include</includePath>
       <copyExclude>samples</copyExclude>
     </block>
   <template>templates/MagicWindowTemplate/template.xml</template>
