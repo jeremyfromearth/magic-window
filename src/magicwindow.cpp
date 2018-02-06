@@ -138,7 +138,7 @@ void magicwindow::app::magic() {
         window->setFullScreen();
       } else {
         window->setSize(bounds.getSize() * ctx.cfg.scale);
-        window->setBorderless();
+        window->setBorderless(true);
         window->setPos(bounds.getUpperLeft() * ctx.cfg.scale);
       }
     }
@@ -163,7 +163,7 @@ void magicwindow::app::magic() {
         int ws = w * app_scale;
         int hs = h * app_scale;
         window->setSize(ws, hs);
-        window->setBorderless();
+        window->setBorderless(true);
         window->setPos(xs, ys);
       }
     }
@@ -202,8 +202,8 @@ void magicwindow::app::magic() {
           window->setPos(x, y);
           window->setFullScreen();
         } else {
-          window->setBorderless();
           window->setSize(ws, hs);
+          window->setBorderless(true);
           window->setPos(x, y);
         }
         id++;
@@ -213,7 +213,11 @@ void magicwindow::app::magic() {
 }
 
   // TODO Wrap these mouse events in a magicwindow mouse event that translates the event coordinates to the appropriate window
-void magicwindow::app::mouseDown(MouseEvent e) { ctx.signals.mouse_down.emit(e); }
+void magicwindow::app::mouseDown(MouseEvent e) {
+  ctx.signals.mouse_down.emit(e);
+  e.setHandled(false);
+}
+
 void magicwindow::app::mouseDrag(MouseEvent e) { ctx.signals.mouse_drag.emit(e); }
 void magicwindow::app::mouseMove(MouseEvent e) { ctx.signals.mouse_move.emit(e); }
 void magicwindow::app::mouseUp(MouseEvent e) { ctx.signals.mouse_up.emit(e); }
