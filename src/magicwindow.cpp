@@ -31,8 +31,12 @@ void magicwindow::app::draw() {
   window_data * data = window->getUserData<window_data>();
   if(data) {
     gl::clear();
+    gl::ScopedMatrices m;
+#if defined CINDER_MAC
+        // This is an ugly hack to account for the OSX toolbar
+      if(!ctx.cfg.fullscreen && !ctx.cfg.top)  ci::gl::translate(0, 22);
+#endif
     ctx.signals.pre_transform_draw.emit();
-    gl::pushMatrices();
     if(ctx.cfg.fullscreen) {
       gl::translate(-data->x, -data->y);
     } else {
@@ -40,7 +44,6 @@ void magicwindow::app::draw() {
       gl::translate(-vec2(data->x, data->y) * (1.0f / ctx.cfg.scale));
     }
     ctx.signals.draw.emit();
-    gl::popMatrices();
     ctx.signals.post_transform_draw.emit();
     
     if(ctx.cfg.bezels) {
@@ -214,6 +217,10 @@ void magicwindow::app::magic() {
 
   // TODO Wrap these mouse events in a magicwindow mouse event that translates the event coordinates to the appropriate window
 void magicwindow::app::mouseDown(MouseEvent e) {
+  WindowRef window = getWindow();
+  vec2 global_pos = window->getPos() + e.getPos();
+  global_pos *= (1.0f / ctx.cfg.scale);
+  //std::cout << e.getPos() << ":" << global_pos << std::endl;
   ctx.signals.mouse_down.emit(e);
   e.setHandled(false);
 }
