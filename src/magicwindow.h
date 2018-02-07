@@ -13,6 +13,8 @@
 #include "cinder/Log.h"
 #include "cinder/Rect.h"
 
+#define MACOS_TOOLBAR_HEIGHT 22
+
 namespace magicwindow {
   ///////////////////////////////////////////////////////////////
   //
@@ -49,6 +51,17 @@ namespace magicwindow {
     bool top;
     ci::JsonTree json;
   };
+  ///////////////////////////////////////////////////////////////
+  //
+  // mouse event
+  //
+  ///////////////////////////////////////////////////////////////
+  struct mouse_event {
+    ci::app::MouseEvent original;
+    ci::vec2 pos;
+    
+    mouse_event(ci::vec2 pos, ci::app::MouseEvent e) : pos(pos), original(e) { };
+  };
   
   ///////////////////////////////////////////////////////////////
   //
@@ -65,10 +78,10 @@ namespace magicwindow {
     ci::signals::Signal<void()> post_transform_draw;
     ci::signals::Signal<void()> pre_transform_draw;
     ci::signals::Signal<void()> main_update;
-    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_down;
-    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_drag;
-    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_move;
-    ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_up;
+    ci::signals::Signal<void(mouse_event e)> mouse_down;
+    ci::signals::Signal<void(mouse_event e)> mouse_drag;
+    ci::signals::Signal<void(mouse_event e)> mouse_move;
+    ci::signals::Signal<void(mouse_event e)> mouse_up;
     ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_wheel;
     ci::signals::Signal<void(ci::app::KeyEvent event)> key_down;
     ci::signals::Signal<void(ci::app::KeyEvent event)> key_up;
@@ -173,6 +186,11 @@ namespace magicwindow {
      * Create windows based on config variables. This method must be called by a sub-classing application.
      */
     void magic();
+    
+    /**
+     * Calculate the position of a mouse event globally across all windows
+     */
+    mouse_event create_mouse_event(ci::app::MouseEvent e);
     
     ///////////////////////////////////////////////////////////////
     // Properties

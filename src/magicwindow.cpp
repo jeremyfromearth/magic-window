@@ -25,6 +25,16 @@ void magicwindow::app::cleanup() {
   App::cleanup();
 }
 
+magicwindow::mouse_event magicwindow::app::create_mouse_event(ci::app::MouseEvent e) {
+  ci::vec2 pos = getWindow()->getPos() + e.getPos();
+#if defined CINDER_MAC
+        // This is an ugly hack to account for the OSX toolbar
+      if(!ctx.cfg.fullscreen && !ctx.cfg.top)  pos.y -= MACOS_TOOLBAR_HEIGHT;
+#endif
+  pos *= (1.0f / ctx.cfg.scale);
+  return mouse_event(pos, e);
+}
+
 void magicwindow::app::draw() {
   WindowRef window = getWindow();
   
@@ -34,7 +44,7 @@ void magicwindow::app::draw() {
     gl::ScopedMatrices m;
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
-      if(!ctx.cfg.fullscreen && !ctx.cfg.top)  ci::gl::translate(0, 22);
+      if(!ctx.cfg.fullscreen && !ctx.cfg.top)  ci::gl::translate(0, MACOS_TOOLBAR_HEIGHT);
 #endif
     ctx.signals.pre_transform_draw.emit();
     if(ctx.cfg.fullscreen) {
@@ -195,7 +205,7 @@ void magicwindow::app::magic() {
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
         // Because regardless of whether or not we set the window.y to 0, it will be bumbped down by the toolbar
-        if(!ctx.cfg.fullscreen && !ctx.cfg.top) y += 22;
+        if(!ctx.cfg.fullscreen && !ctx.cfg.top) y += MACOS_TOOLBAR_HEIGHT;
 #endif
         // Odering of the following is very important
         WindowRef window = r == 0 && c == 0 ? main_window : createWindow();
@@ -215,20 +225,22 @@ void magicwindow::app::magic() {
   }
 }
 
-  // TODO Wrap these mouse events in a magicwindow mouse event that translates the event coordinates to the appropriate window
 void magicwindow::app::mouseDown(MouseEvent e) {
-  WindowRef window = getWindow();
-  vec2 global_pos = window->getPos() + e.getPos();
-  global_pos *= (1.0f / ctx.cfg.scale);
-  //std::cout << e.getPos() << ":" << global_pos << std::endl;
-  ctx.signals.mouse_down.emit(e);
-  e.setHandled(false);
+  ctx.signals.mouse_down.emit(create_mouse_event(e));
 }
 
-void magicwindow::app::mouseDrag(MouseEvent e) { ctx.signals.mouse_drag.emit(e); }
-void magicwindow::app::mouseMove(MouseEvent e) { ctx.signals.mouse_move.emit(e); }
-void magicwindow::app::mouseUp(MouseEvent e) { ctx.signals.mouse_up.emit(e); }
-void magicwindow::app::mouseWheel(MouseEvent e) { ctx.signals.mouse_wheel.emit(e); }
+void magicwindow::app::mouseDrag(MouseEvent e) {
+  ctx.signals.mouse_drag.emit(create_mouse_event(e));
+}
+void magicwindow::app::mouseMove(MouseEvent e) {
+  ctx.signals.mouse_move.emit(create_mouse_event(e));
+}
+void magicwindow::app::mouseUp(MouseEvent e) {
+  ctx.signals.mouse_up.emit(create_mouse_event(e));
+}
+void magicwindow::app::mouseWheel(MouseEvent e) {
+  ctx.signals.mouse_wheel.emit(e);
+}
 
 void magicwindow::app::update() {
   ctx.signals.update.emit();
