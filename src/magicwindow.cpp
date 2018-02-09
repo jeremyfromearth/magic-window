@@ -37,10 +37,10 @@ magicwindow::mouse_event magicwindow::app::create_mouse_event(ci::app::MouseEven
 
 void magicwindow::app::draw() {
   WindowRef window = getWindow();
-  
   window_data * data = window->getUserData<window_data>();
   if(data) {
     gl::clear();
+    { // begin scoped matrics
     gl::ScopedMatrices m;
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
@@ -55,7 +55,7 @@ void magicwindow::app::draw() {
     }
     ctx.signals.draw.emit();
     ctx.signals.post_transform_draw.emit();
-    
+    } // end scoped matrics
     if(ctx.cfg.bezels) {
       Rectf wb = window->getBounds();
       Rectf bounds = Rectf(wb.getX1(), wb.getY1() + 1, wb.getX2() - 1, wb.getY2());
