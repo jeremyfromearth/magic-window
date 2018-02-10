@@ -91,7 +91,7 @@ Here are examples of the `windows` property, specific to each of the values of `
 ``` 
 
 ## Particles Demo
-Here is a screen shot of the Paricles demo running in a 3x4 Magic Window app, consisting of a 3x4 grid layout of 1920x1080 windows scaled to fit on my desktop at 20% scale.
+Here is a screen shot of the Paricles demo a Magic Window app, consisting of a 3x4 grid layout of 1920x1080 windows scaled to fit on my desktop at 20% scale.
 
 ![Image of particles demo](docs/images/particle-demo.png)
 
