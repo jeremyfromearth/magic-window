@@ -154,6 +154,7 @@ void magicwindow::app::magic() {
         window->setBorderless(true);
         window->setPos(bounds.getUpperLeft() * ctx.cfg.scale);
       }
+      app_bounds.include(bounds);
     }
   }
   
@@ -179,6 +180,7 @@ void magicwindow::app::magic() {
         window->setBorderless(true);
         window->setPos(xs, ys);
       }
+      app_bounds.include(ci::Rectf(x, y, x + w, y + h));
     }
   }
   
@@ -199,6 +201,8 @@ void magicwindow::app::magic() {
         // Calculate the coordinates of each window
         int x = c * w;
         int y = r * h;
+        // add the screen bounds to app_bounds before scaling x, y
+        app_bounds.include(ci::Rectf(x, y, x + w, y + h));
         x *= ctx.cfg.scale;
         y *= ctx.cfg.scale;
 

@@ -196,6 +196,7 @@ namespace magicwindow {
     // Properties
     ///////////////////////////////////////////////////////////////
     context ctx;
+    ci::Rectf app_bounds;
     ci::app::WindowRef main_window;
   };
 }
