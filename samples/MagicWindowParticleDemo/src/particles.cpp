@@ -12,6 +12,11 @@
 using namespace ci;
 using namespace ci::app;
 
+Particles::Particles(magicwindow::context & ctx) : ctx(ctx) {
+  ctx.signals.update.connect([&]{update();});
+  ctx.signals.draw.connect([&]{draw();});
+}
+
 void Particles::draw() {
   gl::clear();
   gl::ScopedBlendAdditive blend;

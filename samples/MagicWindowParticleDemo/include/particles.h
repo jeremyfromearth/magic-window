@@ -12,6 +12,8 @@
 #include "cinder/Perlin.h"
 #include "cinder/Rect.h"
 
+#include "magicwindow.h"
+
 class Particle {
 public:
   Particle(const cinder::vec2 &position)
@@ -33,6 +35,8 @@ class Particles {
 public:
   static const int  NUM_PARTICLES = 15000;
   
+  Particles(magicwindow::context & ctx);
+  
   float friction;
   float speed;
   float counter;
@@ -44,5 +48,8 @@ public:
   void draw();
   void update();
   void setup(cinder::Rectf particle_bounds);
+  
+  private:
+    magicwindow::context & ctx;
 };
 

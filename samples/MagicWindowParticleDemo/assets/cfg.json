@@ -3,13 +3,13 @@
   "cursor" : true,
   "keys" : true,
   "fullscreen" : false,
-  "params" : true,
-  "scale" : 0.5,
+  "scale" : 0.20,
   "display" : "grid",
+  "top": false,
   "windows" : {
-    "rows" : 2,
-    "columns" : 6,
-    "screen_width" : 1024,
-    "screen_height" : 512
+    "rows" : 3,
+    "columns" : 4,
+    "screen_width" : 1920,
+    "screen_height" : 1080
   }
 }
