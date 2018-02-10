@@ -29,6 +29,10 @@
 # XCode
 build/
 DerivedData/
+*.pbxuser
+*.perspective
+*.perspectivev3
+xcuserdata
 
 # OSX
 .DS_Store
