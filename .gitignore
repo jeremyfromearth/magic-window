@@ -33,6 +33,7 @@ DerivedData/
 *.perspective
 *.perspectivev3
 xcuserdata
+xcuserdata/
 
 # OSX
 .DS_Store
