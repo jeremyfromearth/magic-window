@@ -29,7 +29,7 @@ magicwindow::mouse_event magicwindow::app::create_mouse_event(ci::app::MouseEven
   ci::vec2 pos = getWindow()->getPos() + e.getPos();
 #if defined CINDER_MAC
         // This is an ugly hack to account for the OSX toolbar
-      if(!ctx.cfg.fullscreen && !ctx.cfg.top)  pos.y -= MACOS_TOOLBAR_HEIGHT;
+      if(!ctx.cfg.fullscreen && !ctx.cfg.top) pos.y -= MACOS_TOOLBAR_HEIGHT;
 #endif
   pos *= (1.0f / ctx.cfg.scale);
   return mouse_event(pos, e);
@@ -101,6 +101,13 @@ bool magicwindow::app::initialize(std::string config_filename)  {
     CI_LOG_EXCEPTION("Could not parse the config file. Adios.", exc);
     return false;
   }
+}
+
+ci::app::TouchEvent & magicwindow::app::interpolate_touch_event(ci::app::TouchEvent & e) {
+  for(auto & t: e.getTouches()) {
+    t.setPos(ci::lmap(t.getPos(), vec2(), (vec2)getWindowSize(), vec2(), app_bounds.getSize()));
+  }
+  return e;
 }
 
 void magicwindow::app::keyDown(KeyEvent e) {
@@ -236,16 +243,31 @@ void magicwindow::app::mouseDown(MouseEvent e) {
 void magicwindow::app::mouseDrag(MouseEvent e) {
   ctx.signals.mouse_drag.emit(create_mouse_event(e));
 }
+
 void magicwindow::app::mouseMove(MouseEvent e) {
   ctx.signals.mouse_move.emit(create_mouse_event(e));
 }
+
 void magicwindow::app::mouseUp(MouseEvent e) {
   ctx.signals.mouse_up.emit(create_mouse_event(e));
 }
+
 void magicwindow::app::mouseWheel(MouseEvent e) {
   ctx.signals.mouse_wheel.emit(e);
 }
 
 void magicwindow::app::update() {
   ctx.signals.update.emit();
+}
+
+void magicwindow::app::touchesBegan(TouchEvent e) {
+  ctx.signals.touches_began.emit(interpolate_touch_event(e));
+}
+
+void magicwindow::app::touchesMoved(TouchEvent e) {
+  ctx.signals.touches_moved.emit(interpolate_touch_event(e));
+};
+
+void magicwindow::app::touchesEnded(TouchEvent e) {
+  ctx.signals.touches_ended.emit(interpolate_touch_event(e));
 }

@@ -82,6 +82,9 @@ namespace magicwindow {
     ci::signals::Signal<void(mouse_event e)> mouse_drag;
     ci::signals::Signal<void(mouse_event e)> mouse_move;
     ci::signals::Signal<void(mouse_event e)> mouse_up;
+    ci::signals::Signal<void(ci::app::TouchEvent e)> touches_began;
+    ci::signals::Signal<void(ci::app::TouchEvent e)> touches_moved;
+    ci::signals::Signal<void(ci::app::TouchEvent e)> touches_ended;
     ci::signals::Signal<void(ci::app::MouseEvent event)> mouse_wheel;
     ci::signals::Signal<void(ci::app::KeyEvent event)> key_down;
     ci::signals::Signal<void(ci::app::KeyEvent event)> key_up;
@@ -176,6 +179,9 @@ namespace magicwindow {
     void mouseMove(ci::app::MouseEvent e) override;
     void mouseUp(ci::app::MouseEvent e) override;
     void mouseWheel(ci::app::MouseEvent e) override;
+    void touchesBegan(ci::app::TouchEvent e) override;
+    void touchesMoved(ci::app::TouchEvent e) override;
+    void touchesEnded(ci::app::TouchEvent e) override;
     void cleanup() override;
     
   protected:
@@ -191,6 +197,8 @@ namespace magicwindow {
      * Calculate the position of a mouse event globally across all windows
      */
     mouse_event create_mouse_event(ci::app::MouseEvent e);
+    
+    ci::app::TouchEvent & interpolate_touch_event(ci::app::TouchEvent & e);
     
     ///////////////////////////////////////////////////////////////
     // Properties
