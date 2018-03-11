@@ -103,11 +103,14 @@ bool magicwindow::app::initialize(std::string config_filename)  {
   }
 }
 
-ci::app::TouchEvent & magicwindow::app::interpolate_touch_event(ci::app::TouchEvent & e) {
-  for(auto & t: e.getTouches()) {
-    t.setPos(ci::lmap(t.getPos(), vec2(), (vec2)getWindowSize(), vec2(), app_bounds.getSize()));
+ci::app::TouchEvent magicwindow::app::interpolate_touch_event(ci::app::TouchEvent & e) {
+  std::vector<ci::app::TouchEvent::Touch> touches;
+  for(auto & t : e.getTouches()) {
+    ci::vec2 pos = (t.getPos() / (ci::vec2)getWindowSize()) * app_bounds.getLowerRight();
+    ci::vec2 pre = (t.getPrevPos() / (ci::vec2)getWindowSize()) * app_bounds.getLowerRight();
+    touches.push_back({pos, pre, t.getId(), t.getTime(), nullptr});
   }
-  return e;
+  return ci::app::TouchEvent(main_window, touches);
 }
 
 void magicwindow::app::keyDown(KeyEvent e) {

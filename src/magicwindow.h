@@ -198,7 +198,7 @@ namespace magicwindow {
      */
     mouse_event create_mouse_event(ci::app::MouseEvent e);
     
-    ci::app::TouchEvent & interpolate_touch_event(ci::app::TouchEvent & e);
+    ci::app::TouchEvent interpolate_touch_event(ci::app::TouchEvent & e);
     
     ///////////////////////////////////////////////////////////////
     // Properties
