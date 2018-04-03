@@ -110,6 +110,7 @@ ci::app::TouchEvent magicwindow::app::interpolate_touch_event(ci::app::TouchEven
     ci::vec2 pre = (t.getPrevPos() / (ci::vec2)getWindowSize()) * app_bounds.getLowerRight();
     touches.push_back({pos, pre, t.getId(), t.getTime(), nullptr});
   }
+  
   return ci::app::TouchEvent(main_window, touches);
 }
 
@@ -138,6 +139,7 @@ void magicwindow::app::magic() {
   
   float app_scale = ctx.cfg.scale;
   JsonTree & window_cfg = ctx.cfg.windows;
+  app_bounds = ci::Rectf(0, 0, 0, 0);
   
   if(!main_window) {
     main_window = getWindow();
