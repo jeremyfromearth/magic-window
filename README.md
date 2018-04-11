@@ -44,10 +44,11 @@ Note `MagicWindowBasicApp` extends `magicwindow::app`, rather than `cinder::app:
 {
   "bezels": false, 						// draw screen outlines when true	
   "cursor" : true,						// show or hide the cursor
+  "delay": 0,                 // seconds to delay window creation, useful for waiting for OS to configure windows on startup
+  "display" : "grid",					// the display mode, options are "grid", "display" and "custom"
   "keys" : true,							// enable default keys bindings
   "fullscreen" : false,				// launch windows in fullscreen mode (scale & top are ignored when true)
   "scale" : 0.25,							// the scale of the application (useful for development on a smaller screen)
-  "display" : "grid",					// the display mode, options are "grid", "display" and "custom"
   "top": false,								// whether the windows are always on top of all other content
   "windows" : {								// the configuration for the display setting (more on this in below...)
     "rows" : 3,
