@@ -1,3 +1,6 @@
+#include <thread>
+#include <chrono>
+
 #include "magicwindow.h"
 
 using namespace ci;
@@ -10,13 +13,14 @@ const std::string config::DISPLAY_GRID = "grid";
 
 void config::initialize(JsonTree cfg) {
   json = cfg;
-  bezels = cfg.hasChild("bezels") ? cfg.getChild("bezels").getValue<bool>() : false;
-  cursor = cfg.hasChild("cursor") ? cfg.getChild("cursor").getValue<bool>() : true;
-  display = cfg.hasChild("display") ? cfg.getChild("display").getValue<std::string>() : config::DISPLAY_SPAN;
-  fullscreen = cfg.hasChild("fullscreen") ? cfg.getChild("fullscreen").getValue<bool>() : true;
-  keys = cfg.hasChild("keys") ? cfg.getChild("keys").getValue<bool>() : true;
-  scale = cfg.hasChild("scale") ? cfg.getChild("scale").getValue<float>() : 1.0;
-  top = cfg.hasChild("top") ? cfg.getChild("top").getValue<bool>() : false;
+  bezels = cfg.hasChild("bezels") ? cfg.getValueForKey<bool>("bezels") : false;
+  cursor = cfg.hasChild("cursor") ? cfg.getValueForKey<bool>("cursor") : true;
+  delay = cfg.hasChild("delay") ? cfg.getValueForKey<long>("delay") : 0;
+  display = cfg.hasChild("display") ? cfg.getValueForKey("display") : config::DISPLAY_SPAN;
+  fullscreen = cfg.hasChild("fullscreen") ? cfg.getValueForKey<bool>("fullscreen") : true;
+  keys = cfg.hasChild("keys") ? cfg.getValueForKey<bool>("keys") : true;
+  scale = cfg.hasChild("scale") ? cfg.getValueForKey<float>("scale") : 1.0f;
+  top = cfg.hasChild("top") ? cfg.getValueForKey<bool>("top") : false;;
   windows = cfg.getChild("windows");
 }
 
@@ -80,6 +84,8 @@ bool magicwindow::app::initialize(JsonTree data) {
   }
   
   ctx.cfg.cursor ? showCursor() : hideCursor();
+  auto delay = std::chrono::seconds(ctx.cfg.delay);
+  std::this_thread::sleep_for(delay);
   magic();
   return true;
 }
@@ -230,6 +236,7 @@ void magicwindow::app::magic() {
         if(ctx.cfg.fullscreen) {
           window->setPos(x, y);
           window->setFullScreen();
+          window->setBorderless(false);
         } else {
           window->setSize(ws, hs);
           window->setBorderless(true);

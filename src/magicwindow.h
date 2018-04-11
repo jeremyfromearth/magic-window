@@ -44,6 +44,7 @@ namespace magicwindow {
     
     bool bezels;
     bool cursor;
+    long delay;
     std::string display;
     bool fullscreen;
     bool keys;
